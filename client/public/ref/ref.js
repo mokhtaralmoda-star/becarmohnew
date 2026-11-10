@@ -29,8 +29,67 @@
   }
   // Support chat window like the original. It is local only: typed text is never sent, queued or stored.
   var chatBox = null;
+  // تنبيه بصري عند وصول رسالة من الإدارة والزائر لم يفتح الدردشة
+  var alertStyle = document.createElement('style');
+  alertStyle.textContent = '.ref-chat-alert{position:fixed;transform:translateX(-50%);z-index:2147483000;background:#dc2626;color:#fff;font-size:12px;font-weight:700;padding:5px 10px;border-radius:12px;white-space:nowrap;pointer-events:none;animation:ref-blink 2s steps(1,end) infinite;box-shadow:0 2px 8px rgba(0,0,0,.25)}' +
+    '.bubble-frame.ref-alert{background:#dc2626 !important;border-color:#dc2626 !important;animation:ref-pulse 1s ease-in-out infinite}' +
+    '.bubble-frame.ref-alert svg,.bubble-frame.ref-alert img{filter:brightness(0) invert(1)}' +
+    '@keyframes ref-blink{0%,49%{opacity:1}50%,100%{opacity:0}}' +
+    '@keyframes ref-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}';
+  document.head.appendChild(alertStyle);
+
+  var chatAlertEl = null, chatAlertTimer = null, pendingIncoming = [];
+
+  function clearChatAlert() {
+    if (chatAlertTimer) { clearInterval(chatAlertTimer); chatAlertTimer = null; }
+    if (chatAlertEl && chatAlertEl.parentNode) chatAlertEl.parentNode.removeChild(chatAlertEl);
+    chatAlertEl = null;
+    document.querySelectorAll('.bubble-frame.ref-alert').forEach(function (b) { b.classList.remove('ref-alert'); });
+  }
+
+  function showChatAlert() {
+    var btn = document.querySelector('bcare-bubbles .bubble-frame');
+    if (!btn) return;
+    btn.classList.add('ref-alert');
+    if (chatAlertEl) return;
+    chatAlertEl = document.createElement('div');
+    chatAlertEl.className = 'ref-chat-alert';
+    chatAlertEl.textContent = lang === 'ar' ? 'رسالة عاجلة من الإدارة' : 'Urgent message from admin';
+    document.body.appendChild(chatAlertEl);
+    var place = function () {
+      if (!chatAlertEl) return;
+      var r = btn.getBoundingClientRect();
+      chatAlertEl.style.top = (r.top - 30) + 'px';
+      chatAlertEl.style.left = (r.left + r.width / 2) + 'px';
+    };
+    place();
+    chatAlertTimer = setInterval(place, 500);
+  }
+
+  function flushIncoming() {
+    if (!pendingIncoming.length) return;
+    var msgs = chatBox && chatBox.querySelector('.rc-msgs');
+    if (!msgs) return;
+    while (pendingIncoming.length) {
+      var d = document.createElement('div');
+      d.className = 'rc-m them';
+      d.textContent = pendingIncoming.shift();
+      msgs.appendChild(d);
+    }
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  window.addEventListener('message', function (e) {
+    if (e.origin !== location.origin || !e.data || e.data.type !== 'ref-chat-incoming') return;
+    if (typeof e.data.text !== 'string') return;
+    if (chatBox && !chatBox.hidden) return;
+    pendingIncoming.push(e.data.text);
+    showChatAlert();
+  });
+
   function openChat() {
-    if (chatBox) { chatBox.hidden = false; var i = chatBox.querySelector('input'); if (i) i.focus(); return; }
+    clearChatAlert();
+    if (chatBox) { chatBox.hidden = false; flushIncoming(); var i = chatBox.querySelector('input'); if (i) i.focus(); return; }
     var ar = lang === 'ar';
     var T = ar
       ? { name: 'B Care', sub: 'الدعم الفني', hi: 'مرحباً بك في خدمة الدعم', how: 'كيف يمكننا مساعدتك؟', ph: 'اكتب رسالتك...', close: 'إغلاق', send: 'إرسال', off: 'خدمة الدردشة غير متصلة بالخادم حالياً، ولم يتم إرسال رسالتك.', fail: 'لم يتم إرسال الرسالة، حاول مجدداً.' }
@@ -71,6 +130,7 @@
       '<button type="button" class="rc-send" disabled aria-label="' + T.send + '"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button></div></div>';
     document.body.appendChild(chatBox);
     var input = chatBox.querySelector('input'), note = chatBox.querySelector('.rc-note'), msgs = chatBox.querySelector('.rc-msgs');
+    flushIncoming();
     var pending = {}, busy = false;
     var sendButton = chatBox.querySelector('.rc-send');
     function updateSendReady() {
