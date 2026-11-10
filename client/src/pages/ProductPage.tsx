@@ -37,31 +37,70 @@ function drawCaptcha(el: HTMLIFrameElement): string | null {
   const input = host?.querySelector("input") as HTMLInputElement | null;
   if (!doc || !host || !img) return null;
 
+  const w = 100;
+  const h = 46;
   const code = Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join("");
+
   const canvas = doc.createElement("canvas");
-  canvas.width = 110;
-  canvas.height = 46;
+  canvas.width = w;
+  canvas.height = h;
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
 
   ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, 110, 46);
-  const colors = ["#8b1a1a", "#1a3a8b", "#5a1a8b", "#c26a00", "#111111"];
-  for (let i = 0; i < 4; i++) {
-    ctx.save();
-    ctx.translate(16 + i * 24, 33);
-    ctx.rotate((Math.random() - 0.5) * 0.5);
-    ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-    ctx.font = `${i % 2 ? "italic " : "bold "}26px serif`;
-    ctx.fillText(code[i], 0, 0);
-    ctx.restore();
+  ctx.fillRect(0, 0, w, h);
+
+  const kind = Math.floor(Math.random() * 5);
+  const lineColors = ["#bcd3e6", "#8f9de0", "#7fa8d4", "#9ad19a", "#e8b0b0"];
+  const lineColor = lineColors[kind];
+  ctx.strokeStyle = lineColor;
+  ctx.lineWidth = 1;
+
+  if (kind === 0) {
+    for (let x = 0; x <= w; x += 5) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    }
+    for (let y = 0; y <= h; y += 5) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    }
+  } else if (kind === 1) {
+    for (let i = -h; i < w; i += 5) {
+      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i + h, h); ctx.stroke();
+    }
+  } else if (kind === 2) {
+    for (let x = 0; x <= w; x += 5) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    }
+  } else if (kind === 3) {
+    ctx.fillStyle = lineColor;
+    for (let x = 2; x < w; x += 5) {
+      for (let y = 2; y < h; y += 5) {
+        ctx.beginPath(); ctx.arc(x, y, 0.9, 0, Math.PI * 2); ctx.fill();
+      }
+    }
+  } else {
+    for (let y = 0; y <= h; y += 4) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    }
   }
-  for (let i = 0; i < 6; i++) {
-    ctx.strokeStyle = "rgba(20,99,148,0.35)";
-    ctx.beginPath();
-    ctx.moveTo(Math.random() * 110, Math.random() * 46);
-    ctx.lineTo(Math.random() * 110, Math.random() * 46);
-    ctx.stroke();
+
+  const colors = ["#e8620c", "#c62828", "#1a3a8b", "#5a1a8b", "#111111", "#8b1a1a", "#0d6b3f"];
+  for (let i = 0; i < 4; i++) {
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size = 24 + Math.floor(Math.random() * 7);
+    const italic = Math.random() < 0.4 ? "italic " : "";
+    const weight = Math.random() < 0.5 ? "bold " : "";
+    ctx.save();
+    ctx.translate(12 + i * 22, 32);
+    ctx.rotate((Math.random() - 0.5) * 0.28);
+    ctx.fillStyle = color;
+    ctx.font = `${italic}${weight}${size}px Georgia, serif`;
+    ctx.fillText(code[i], 0, 0);
+    if (Math.random() < 0.45) {
+      const tw = ctx.measureText(code[i]).width;
+      ctx.fillRect(-1, 4, tw + 2, 2);
+    }
+    ctx.restore();
   }
 
   img.src = canvas.toDataURL();
@@ -73,7 +112,6 @@ function drawCaptcha(el: HTMLIFrameElement): string | null {
   if (err) err.hidden = true;
   return code;
 }
-
 function showCaptchaError(el: HTMLIFrameElement) {
   const doc = el.contentDocument;
   const host = doc?.querySelector("bcare-presentation-captcha-input") as HTMLElement | null;
@@ -84,7 +122,7 @@ function showCaptchaError(el: HTMLIFrameElement) {
   if (!err) {
     err = doc.createElement("p");
     err.className = "ref-captcha-err";
-    err.textContent = "رمز التحقق غير صحيح";
+    err.textContent = "Ø±Ù…Ø² Ø§Ù„ØªØ­Ù‚Ù‚ ØºÙŠØ± ØµØ­ÙŠØ­";
     err.style.cssText =
       "background:#fde8e8;color:#c82333;font-size:12px;line-height:1.6;padding:4px 8px;margin:4px 0 0;text-align:start;border-radius:4px";
     host.appendChild(err);
@@ -150,7 +188,7 @@ export default function ProductPage() {
     return () => links.forEach((l) => l.remove());
   }, [lang, variant]);
 
-  // كابتشا جديدة لكل تحميل ولكل نقرة على التحديث
+  // ÙƒØ§Ø¨ØªØ´Ø§ Ø¬Ø¯ÙŠØ¯Ø© Ù„ÙƒÙ„ ØªØ­Ù…ÙŠÙ„ ÙˆÙ„ÙƒÙ„ Ù†Ù‚Ø±Ø© Ø¹Ù„Ù‰ Ø§Ù„ØªØ­Ø¯ÙŠØ«
   useEffect(() => {
     const el = frame.current;
     if (!el) return;
@@ -208,7 +246,7 @@ export default function ProductPage() {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  // زر «إظهار العروض» مع التحقق من الكابتشا
+  // Ø²Ø± Â«Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø¹Ø±ÙˆØ¶Â» Ù…Ø¹ Ø§Ù„ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„ÙƒØ§Ø¨ØªØ´Ø§
   useEffect(() => {
     const el = frame.current;
     const form = FORM_ROUTES[path];
@@ -218,7 +256,7 @@ export default function ProductPage() {
       const btn = target?.closest("button");
       if (!btn) return;
       const label = (btn.textContent || "").replace(/\s+/g, " ").trim();
-      if (label !== "إظهار العروض" && label !== "Show Offers") return;
+      if (label !== "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø¹Ø±ÙˆØ¶" && label !== "Show Offers") return;
 
       const input = el.contentDocument?.querySelector(
         'bcare-presentation-captcha-input input',
@@ -250,7 +288,7 @@ export default function ProductPage() {
         ref={frame}
         key={`${name}-${lang}${variant}`}
         src={`/ref/${name}-${lang}${variant}.html`}
-        title="بي كير"
+        title="Ø¨ÙŠ ÙƒÙŠØ±"
         onLoad={() => setBusy(false)}
         className="fixed inset-0 h-dvh w-full border-0 bg-[#f7f7f7]"
       />
@@ -260,13 +298,13 @@ export default function ProductPage() {
           dir="rtl"
           className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-white"
         >
-          <img src={LOGO} alt="بي كير" className="h-12 md:h-14" />
+          <img src={LOGO} alt="Ø¨ÙŠ ÙƒÙŠØ±" className="h-12 md:h-14" />
           <div
             className="h-10 w-10 animate-spin rounded-full border-[3px] border-[#dbe6ee]"
             style={{ borderTopColor: "#146394" }}
           />
           <p className="text-sm font-bold" style={{ color: "#146394" }}>
-            جارٍ التحميل...
+            Ø¬Ø§Ø±Ù Ø§Ù„ØªØ­Ù…ÙŠÙ„...
           </p>
         </div>
       )}
