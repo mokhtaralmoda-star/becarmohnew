@@ -255,11 +255,17 @@ export default function ProductPage() {
       if (PRODUCT_PAGES[to]) setLocation(to);
     };
     window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);  }, [setLocation]);
+
+  useEffect(() => {
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = lang;
+  }, [lang]);
   useEffect(() => {
     const s = socket.value;
     const onAdmin = (p: { message?: string } | string) => {
       const text = typeof p === "string" ? p : p?.message ?? "";
+      console.log("[chat] admin -> visitor:", text);
       if (!text) return;
       frame.current?.contentWindow?.postMessage(
         { type: "ref-chat-incoming", text },
@@ -269,12 +275,6 @@ export default function ProductPage() {
     s.on("chat:fromAdmin", onAdmin);
     return () => { s.off("chat:fromAdmin", onAdmin); };
   }, []);
-  }, [setLocation]);
-
-  useEffect(() => {
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = lang;
-  }, [lang]);
 
   useEffect(() => {
     const el = frame.current;
