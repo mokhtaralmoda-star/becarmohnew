@@ -75,7 +75,7 @@
     var p = norm();
     if (!MAP[p]) { host.style.display = "none"; return; }
     host.style.display = "";
-    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html?b=20";
+    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html?b=22";
     if (src !== current) { current = src; frame.src = src; }
   }
 

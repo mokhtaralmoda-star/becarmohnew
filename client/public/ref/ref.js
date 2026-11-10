@@ -739,3 +739,17 @@ body{overflow-x:hidden!important;max-width:100vw!important}
   if(document.readyState==="complete")setTimeout(run,700);
   else window.addEventListener("load",function(){setTimeout(run,700)});
 })();
+;(function(){
+  if(document.getElementById("patch-v22"))return;
+  var s=document.createElement("style");
+  s.id="patch-v22";
+  s.textContent=`
+.main-container{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr))!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+.main-container>*{min-width:0!important;max-width:100%!important}
+.main-container img,.main-container video{max-width:100%!important;height:auto!important}
+.content,.responsive-container,.container-landing{min-width:0!important;max-width:100%!important}
+.bcare-presentation-landing-page-header{width:100%!important;max-width:100%!important;min-width:0!important}
+.bcare-landing-product-nav{position:relative!important;z-index:30!important;background:#F7F7F7!important}
+  `;
+  document.head.appendChild(s);
+})();
