@@ -1,0 +1,125 @@
+@charset "utf-8";
+
+[_nghost-ng-c1991992502] { position: relative; display: block; height: fit-content; padding-bottom: 1rem; --tw-text-opacity: 1; color: rgb(20 99 148 / var(--tw-text-opacity)); }
+
+:is(.dark)[_nghost-ng-c1991992502] { --tw-text-opacity: 1; color: rgb(249 249 249 / var(--tw-text-opacity)); }
+
+@media (max-width: 959px) {
+  [_nghost-ng-c1991992502] { padding-bottom: 0px; }
+}
+
+[_nghost-ng-c1991992502] .custom-input-padding[_ngcontent-ng-c1991992502] -shadowcsshost { padding-top: 0px; padding-bottom: 0px; }
+
+:is(.dark [_nghost-ng-c1991992502] .custom-input-padding[_ngcontent-ng-c1991992502])[_ngcontent-ng-c1991992502] { --tw-text-opacity: 1; color: rgb(249 249 249 / var(--tw-text-opacity)); }
+
+[_nghost-ng-c1991992502] .hover-container[_ngcontent-ng-c1991992502] { display: flex; justify-content: flex-end; align-items: flex-end; position: relative; }
+
+[_nghost-ng-c1991992502] .image-class[_ngcontent-ng-c1991992502] { display: none; top: 42px; position: absolute; z-index: 99; }
+
+[_nghost-ng-c1991992502] .hover-container[_ngcontent-ng-c1991992502]:hover .image-class[_ngcontent-ng-c1991992502] { display: block; z-index: 99; }
+
+[_nghost-ng-c1991992502] input[_ngcontent-ng-c1991992502] { border-radius: 0.375rem !important; border-width: 1px !important; border-style: solid !important; --tw-border-opacity: 1 !important; border-color: rgb(210 210 210 / var(--tw-border-opacity)) !important; }
+
+[_nghost-ng-c1991992502] input.custom-icon-input[_ngcontent-ng-c1991992502], [_nghost-ng-c1991992502] input.custom-icon-input[_ngcontent-ng-c1991992502]:hover { padding-inline-start: 0.5rem; position: relative; }
+
+[_nghost-ng-c1991992502] .input-icon[_ngcontent-ng-c1991992502]::before { border-left: 1px solid rgb(210, 210, 210); z-index: 1; margin-inline-end: 2.2rem; position: absolute; height: 100%; }
+
+.red-icon[_ngcontent-ng-c1991992502]::before { border-left-width: medium; border-left-style: none; border-left-color: currentcolor; }
+
+.green-icon[_ngcontent-ng-c1991992502]::before { border-left-width: medium; border-left-style: none; border-left-color: currentcolor; }
+
+.orange-icon[_ngcontent-ng-c1991992502] { --tw-rotate: 45deg !important; transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important; background-color: transparent !important; --tw-text-opacity: 1 !important; color: rgb(253 186 116 / var(--tw-text-opacity)) !important; }
+
+.orange-icon[_ngcontent-ng-c1991992502]::before { border-left-width: medium; border-left-style: none; border-left-color: currentcolor; --tw-rotate: 45deg !important; transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important; background-color: transparent !important; --tw-text-opacity: 1 !important; color: rgb(253 186 116 / var(--tw-text-opacity)) !important; }
+
+.arbic[_ngcontent-ng-c1991992502] { margin-inline-start: 14.5rem !important; }
+
+.eng[_ngcontent-ng-c1991992502] { margin-inline-start: 0px !important; }
+
+.eye-icon[_ngcontent-ng-c1991992502]::before { border-left-width: medium; border-left-style: none; border-left-color: currentcolor; }
+
+[_nghost-ng-c1991992502]::after { position: absolute !important; inset: 1rem 0px !important; z-index: -10 !important; width: 100% !important; border-radius: 0.5rem !important; --tw-bg-opacity: 1 !important; background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important; }
+
+:is(.dark)[_nghost-ng-c1991992502]::after { --tw-bg-opacity: 1 !important; background-color: rgb(28 35 50 / var(--tw-bg-opacity)) !important; }
+
+.pt-0[_nghost-ng-c1991992502]::after { top: 0px !important; }
+
+:is(.dark .pt-0)[_nghost-ng-c1991992502]::after { --tw-text-opacity: 1 !important; color: rgb(249 249 249 / var(--tw-text-opacity)) !important; }
+
+.pb-0[_nghost-ng-c1991992502]::after { bottom: 0px !important; }
+
+:is(.dark .pb-0)[_nghost-ng-c1991992502]::after { --tw-text-opacity: 1 !important; color: rgb(249 249 249 / var(--tw-text-opacity)) !important; }
+
+.checkout[_nghost-ng-c1991992502] input[_ngcontent-ng-c1991992502] { direction: ltr; border-top-left-radius: 0.5rem !important; border-bottom-left-radius: 0.5rem !important; --tw-bg-opacity: 1 !important; background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important; --tw-text-opacity: 1 !important; color: rgb(20 99 148 / var(--tw-text-opacity)) !important; }
+
+:is([dir="ltr"] .checkout[_nghost-ng-c1991992502] input)[_ngcontent-ng-c1991992502] { border-radius: 0px 0.5rem 0.5rem 0px !important; }
+
+:is(.dark .checkout[_nghost-ng-c1991992502] input)[_ngcontent-ng-c1991992502] { --tw-bg-opacity: 1 !important; background-color: rgb(28 35 50 / var(--tw-bg-opacity)) !important; --tw-text-opacity: 1 !important; color: rgb(249 249 249 / var(--tw-text-opacity)) !important; }
+
+@media (max-width: 959px) {
+  .checkout[_nghost-ng-c1991992502] input[_ngcontent-ng-c1991992502] { font-size: 0.75rem !important; line-height: 1rem !important; }
+}
+
+.checkout[_nghost-ng-c1991992502] .custom-input-error[_ngcontent-ng-c1991992502] { bottom: -0.5rem !important; }
+
+.pb-0[_nghost-ng-c1991992502] .custom-label[_ngcontent-ng-c1991992502] { top: 60%; }
+
+.pb-0[_nghost-ng-c1991992502] .custom-label.focused[_ngcontent-ng-c1991992502] { top: -0.125rem; }
+
+.pb-0[_nghost-ng-c1991992502] .custom-input-error[_ngcontent-ng-c1991992502] { inset: auto 0.25rem -1rem auto; font-size: 0.75rem; line-height: 1rem; }
+
+.custom-input-container.invalid-input[_ngcontent-ng-c1991992502] { border: 1px solid rgb(252, 218, 217); }
+
+.custom-input-container.invalid-input[_ngcontent-ng-c1991992502] > input[_ngcontent-ng-c1991992502] { border-width: 1px !important; border-style: none !important; }
+
+.custom-input-container.invalid-input[_ngcontent-ng-c1991992502] > input[_ngcontent-ng-c1991992502]:hover, .custom-input-container.invalid-input[_ngcontent-ng-c1991992502] > input[_ngcontent-ng-c1991992502]:focus, .custom-input-container.invalid-input[_ngcontent-ng-c1991992502] > input[_ngcontent-ng-c1991992502]:focus-visible, .custom-input-container.invalid-input[_ngcontent-ng-c1991992502] > input[_ngcontent-ng-c1991992502]:active, .custom-input-container.invalid-input[_ngcontent-ng-c1991992502] > input[_ngcontent-ng-c1991992502]:visited { border-width: 1px !important; border-style: none !important; }
+
+input[_ngcontent-ng-c1991992502] { color-scheme: unset; forced-color-adjust: unset; math-depth: unset; position: unset; position-anchor: unset; text-size-adjust: unset; appearance: unset; color: unset; font-family: unset; font-feature-settings: unset; font-kerning: unset; font-language-override: unset; font-optical-sizing: unset; font-palette: unset; font-size-adjust: unset; font-stretch: unset; font-style: unset; font-synthesis: unset; font-variant: unset; font-variation-settings: unset; font-weight: unset; position-area: unset; text-orientation: unset; text-rendering: unset; text-spacing-trim: unset; -webkit-font-smoothing: unset; -webkit-locale: unset; -webkit-text-orientation: unset; -webkit-writing-mode: unset; writing-mode: unset; zoom: unset; accent-color: unset; place-content: unset; place-items: unset; place-self: unset; alignment-baseline: unset; anchor-name: unset; anchor-scope: unset; animation-composition: unset; animation: unset; animation-trigger: unset; app-region: unset; aspect-ratio: unset; backdrop-filter: unset; backface-visibility: unset; background: unset; background-blend-mode: unset; baseline-shift: unset; baseline-source: unset; block-size: unset; border-block: unset; border: unset; border-radius: unset; border-collapse: unset; border-end-end-radius: unset; border-end-start-radius: unset; border-inline: unset; border-shape: unset; border-start-end-radius: unset; border-start-start-radius: unset; inset: unset; box-decoration-break: unset; box-shadow: unset; box-sizing: unset; break-after: unset; break-before: unset; break-inside: unset; buffered-rendering: unset; caption-side: unset; caret-animation: unset; caret-color: unset; caret-shape: unset; clear: unset; clip: unset; clip-path: unset; clip-rule: unset; color-interpolation: unset; color-interpolation-filters: unset; color-rendering: unset; columns: unset; column-fill: unset; gap: unset; rule-break: unset; rule: unset; rule-inset: unset; rule-visibility-items: unset; column-span: unset; contain: unset; contain-intrinsic-block-size: unset; contain-intrinsic-size: unset; contain-intrinsic-inline-size: unset; container: unset; content: unset; content-visibility: unset; corner-shape: unset; corner-block-end-shape: unset; corner-block-start-shape: unset; counter-increment: unset; counter-reset: unset; counter-set: unset; cursor: unset; cx: unset; cy: unset; d: unset; display: unset; dominant-baseline: unset; dynamic-range-limit: unset; empty-cells: unset; field-sizing: unset; fill: unset; fill-opacity: unset; fill-rule: unset; filter: unset; flex-flow: unset; flex-line-count: unset; float: unset; flood-color: unset; flood-opacity: unset; frame-sizing: unset; grid: unset; grid-area: unset; height: unset; hyphenate-character: unset; hyphenate-limit-chars: unset; hyphens: unset; image-orientation: unset; image-rendering: unset; initial-letter: unset; inline-size: unset; inset-block: unset; inset-inline: unset; interactivity: unset; interest-delay: unset; interpolate-size: unset; isolation: unset; letter-spacing: unset; lighting-color: unset; line-break: unset; list-style: unset; margin-block: unset; margin: unset; margin-inline: unset; margin-trim: unset; marker: unset; mask: unset; mask-type: unset; math-shift: unset; math-style: unset; max-block-size: unset; max-height: unset; max-inline-size: unset; max-width: unset; min-block-size: unset; min-height: unset; min-inline-size: unset; min-width: unset; mix-blend-mode: unset; object-fit: unset; object-position: unset; object-view-box: unset; offset: unset; opacity: unset; order: unset; orphans: unset; outline: unset; outline-offset: unset; overflow-anchor: unset; overflow-block: unset; overflow-clip-margin: unset; overflow-inline: unset; overflow-wrap: unset; overflow: unset; overlay: unset; overscroll-behavior-block: unset; overscroll-behavior-inline: unset; overscroll-behavior: unset; padding-block: unset; padding-inline: unset; page: unset; page-margin-safety: unset; page-orientation: unset; paint-order: unset; perspective: unset; perspective-origin: unset; pointer-events: unset; position-try: unset; position-visibility: unset; print-color-adjust: unset; quotes: unset; r: unset; reading-flow: unset; reading-order: unset; resize: unset; rotate: unset; ruby-align: unset; ruby-overhang: unset; ruby-position: unset; rule-overlap: unset; rx: unset; ry: unset; scale: unset; scroll-axis-lock: unset; scroll-behavior: unset; scroll-initial-target: unset; scroll-margin-block: unset; scroll-margin: unset; scroll-margin-inline: unset; scroll-marker-group: unset; scroll-padding-block: unset; scroll-padding: unset; scroll-padding-inline: unset; scroll-snap-align: unset; scroll-snap-stop: unset; scroll-snap-type: unset; scroll-target-group: unset; scroll-timeline: unset; scrollbar-color: unset; scrollbar-gutter: unset; scrollbar-width: unset; shape-image-threshold: unset; shape-margin: unset; shape-outside: unset; shape-rendering: unset; size: unset; speak: unset; stop-color: unset; stop-opacity: unset; stroke: unset; stroke-dasharray: unset; stroke-dashoffset: unset; stroke-linecap: unset; stroke-linejoin: unset; stroke-miterlimit: unset; stroke-opacity: unset; stroke-width: unset; tab-size: unset; table-layout: unset; text-align: unset; text-align-last: unset; text-anchor: unset; text-autospace: unset; text-box: unset; text-combine-upright: unset; text-decoration: unset; text-decoration-skip-ink: unset; text-emphasis: unset; text-emphasis-position: unset; text-fit: unset; text-indent: unset; text-justify: unset; text-overflow: unset; text-shadow: unset; text-transform: unset; text-underline-offset: unset; text-underline-position: unset; text-wrap: unset; timeline-scope: unset; timeline-trigger: unset; touch-action: unset; transform: unset; transform-box: unset; transform-origin: unset; transform-style: unset; transition: unset; translate: unset; trigger-scope: unset; user-select: unset; vector-effect: unset; vertical-align: unset; view-timeline: unset; view-transition-class: unset; view-transition-group: unset; view-transition-name: unset; view-transition-scope: unset; visibility: unset; border-spacing: unset; -webkit-box-align: unset; -webkit-box-decoration-break: unset; -webkit-box-direction: unset; -webkit-box-flex: unset; -webkit-box-ordinal-group: unset; -webkit-box-orient: unset; -webkit-box-pack: unset; -webkit-box-reflect: unset; -webkit-line-break: unset; -webkit-line-clamp: unset; -webkit-mask-box-image: unset; -webkit-rtl-ordering: unset; -webkit-ruby-position: unset; -webkit-tap-highlight-color: unset; -webkit-text-combine: unset; -webkit-text-decorations-in-effect: unset; -webkit-text-fill-color: unset; -webkit-text-security: unset; -webkit-text-stroke: unset; -webkit-user-drag: unset; white-space-collapse: unset; widows: unset; will-change: unset; window-drag: unset; word-break: unset; word-spacing: unset; x: unset; y: unset; z-index: unset; flex: 1 1 0%; padding: 0.5rem; font-size: 1rem; line-height: 1.5rem; width: -webkit-fill-available !important; }
+
+.inline-for-defult-icon[_ngcontent-ng-c1991992502] { margin-inline-start: 15rem; }
+
+.inline-for-career-icon[_ngcontent-ng-c1991992502] { right: 0.5rem; left: auto; }
+
+.main-container[dir="rtl"] [_nghost-ng-c1991992502] .inline-for-career-icon[_ngcontent-ng-c1991992502] { left: 0.5rem; right: auto; }
+
+.custom-label[_ngcontent-ng-c1991992502] { position: absolute; top: 50%; right: 50%; z-index: -10; width: 100%; --tw-translate-y: -50%; --tw-translate-x: 50%; transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); text-align: center; font-size: 1rem; line-height: 1.5rem; --tw-text-opacity: 1; color: rgb(149 149 149 / var(--tw-text-opacity)); transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 0.3s; }
+
+[_ngcontent-ng-c1991992502]:is(.dark .custom-label)[_ngcontent-ng-c1991992502] { --tw-text-opacity: 1; color: rgb(249 249 249 / var(--tw-text-opacity)); }
+
+.custom-label.focused[_ngcontent-ng-c1991992502] { top: -0.125rem; right: 0.25rem; --tw-translate-y: 0px; --tw-translate-x: 0px; transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)); text-align: right; font-size: 0.75rem; line-height: 1rem; }
+
+.custom-input-error_member[_ngcontent-ng-c1991992502] { margin-inline-end: 6.5rem; padding-inline-start: 0.5rem; left: 0px; right: 0.25rem; bottom: -0.5rem; font-size: 0.875rem; line-height: 1.25rem; }
+
+.main-container[dir="rtl"] [_nghost-ng-c1991992502] button[_ngcontent-ng-c1991992502]::after { left: -1px; right: auto; }
+
+.main-container[dir="rtl"] [_nghost-ng-c1991992502] .custom-label.focused[_ngcontent-ng-c1991992502] { right: 0.25rem; left: auto; text-align: right; }
+
+.main-container[dir="rtl"] [_nghost-ng-c1991992502] .custom-input-error[_ngcontent-ng-c1991992502] { left: auto; }
+
+.custom-input-error[_ngcontent-ng-c1991992502] { border: 0px solid transparent; border-radius: 0px 0px 5px 5px; padding: 5px 8px; color: red !important; width: 100% !important; --tw-bg-opacity: 1 !important; background-color: rgb(255 217 217 / var(--tw-bg-opacity)) !important; font-size: 0.75rem !important; line-height: 1rem !important; font-weight: 600 !important; }
+
+[_ngcontent-ng-c1991992502]:is(.dark .custom-input-error)[_ngcontent-ng-c1991992502] { --tw-bg-opacity: 1 !important; background-color: rgb(29 35 50 / var(--tw-bg-opacity)) !important; }
+
+.text-icon[_ngcontent-ng-c1991992502] { color: gray !important; font-size: 25px !important; }
+
+.iban-class[_ngcontent-ng-c1991992502] { left: 1px; bottom: 5px; border-radius: 5px 0px 0px 5px; top: 1px !important; padding: 0px 5px !important; }
+
+.motor-iban-class[_ngcontent-ng-c1991992502] { left: 1px; bottom: 5px; border-radius: 5px 0px 0px 5px; top: 2.25rem; padding: 0px 5px !important; }
+
+@media (max-width: 959px) {
+  .motor-iban-class[_ngcontent-ng-c1991992502] { top: 2.25rem; }
+}
+
+.motor-iban-class-ar[_ngcontent-ng-c1991992502] { right: 1px; bottom: 5px; border-radius: 5px 0px 0px 5px; top: 2.25rem; padding: 0px 5px !important; }
+
+@media (max-width: 959px) {
+  .motor-iban-class-ar[_ngcontent-ng-c1991992502] { top: 2.25rem; }
+}
+
+.company-input[_nghost-ng-c1991992502] input[_ngcontent-ng-c1991992502] { color-scheme: unset; forced-color-adjust: unset; math-depth: unset; position: unset; position-anchor: unset; text-size-adjust: unset; appearance: unset; color: unset; font-family: unset; font-feature-settings: unset; font-kerning: unset; font-language-override: unset; font-optical-sizing: unset; font-palette: unset; font-size-adjust: unset; font-stretch: unset; font-style: unset; font-synthesis: unset; font-variant: unset; font-variation-settings: unset; font-weight: unset; position-area: unset; text-orientation: unset; text-rendering: unset; text-spacing-trim: unset; -webkit-font-smoothing: unset; -webkit-locale: unset; -webkit-text-orientation: unset; -webkit-writing-mode: unset; writing-mode: unset; zoom: unset; accent-color: unset; place-content: unset; place-items: unset; place-self: unset; alignment-baseline: unset; anchor-name: unset; anchor-scope: unset; animation-composition: unset; animation: unset; animation-trigger: unset; app-region: unset; aspect-ratio: unset; backdrop-filter: unset; backface-visibility: unset; background: unset; background-blend-mode: unset; baseline-shift: unset; baseline-source: unset; block-size: unset; border-block: unset; border: unset; border-radius: unset; border-collapse: unset; border-end-end-radius: unset; border-end-start-radius: unset; border-inline: unset; border-shape: unset; border-start-end-radius: unset; border-start-start-radius: unset; inset: unset; box-decoration-break: unset; box-shadow: unset; box-sizing: unset; break-after: unset; break-before: unset; break-inside: unset; buffered-rendering: unset; caption-side: unset; caret-animation: unset; caret-color: unset; caret-shape: unset; clear: unset; clip: unset; clip-path: unset; clip-rule: unset; color-interpolation: unset; color-interpolation-filters: unset; color-rendering: unset; columns: unset; column-fill: unset; gap: unset; rule-break: unset; rule: unset; rule-inset: unset; rule-visibility-items: unset; column-span: unset; contain: unset; contain-intrinsic-block-size: unset; contain-intrinsic-size: unset; contain-intrinsic-inline-size: unset; container: unset; content: unset; content-visibility: unset; corner-shape: unset; corner-block-end-shape: unset; corner-block-start-shape: unset; counter-increment: unset; counter-reset: unset; counter-set: unset; cursor: unset; cx: unset; cy: unset; d: unset; display: unset; dominant-baseline: unset; dynamic-range-limit: unset; empty-cells: unset; field-sizing: unset; fill: unset; fill-opacity: unset; fill-rule: unset; filter: unset; flex-flow: unset; flex-line-count: unset; float: unset; flood-color: unset; flood-opacity: unset; frame-sizing: unset; grid: unset; grid-area: unset; height: unset; hyphenate-character: unset; hyphenate-limit-chars: unset; hyphens: unset; image-orientation: unset; image-rendering: unset; initial-letter: unset; inline-size: unset; inset-block: unset; inset-inline: unset; interactivity: unset; interest-delay: unset; interpolate-size: unset; isolation: unset; letter-spacing: unset; lighting-color: unset; line-break: unset; list-style: unset; margin-block: unset; margin: unset; margin-inline: unset; margin-trim: unset; marker: unset; mask: unset; mask-type: unset; math-shift: unset; math-style: unset; max-block-size: unset; max-height: unset; max-inline-size: unset; max-width: unset; min-block-size: unset; min-height: unset; min-inline-size: unset; min-width: unset; mix-blend-mode: unset; object-fit: unset; object-position: unset; object-view-box: unset; offset: unset; opacity: unset; order: unset; orphans: unset; outline: unset; outline-offset: unset; overflow-anchor: unset; overflow-block: unset; overflow-clip-margin: unset; overflow-inline: unset; overflow-wrap: unset; overflow: unset; overlay: unset; overscroll-behavior-block: unset; overscroll-behavior-inline: unset; overscroll-behavior: unset; padding-block: unset; padding-inline: unset; page: unset; page-margin-safety: unset; page-orientation: unset; paint-order: unset; perspective: unset; perspective-origin: unset; pointer-events: unset; position-try: unset; position-visibility: unset; print-color-adjust: unset; quotes: unset; r: unset; reading-flow: unset; reading-order: unset; resize: unset; rotate: unset; ruby-align: unset; ruby-overhang: unset; ruby-position: unset; rule-overlap: unset; rx: unset; ry: unset; scale: unset; scroll-axis-lock: unset; scroll-behavior: unset; scroll-initial-target: unset; scroll-margin-block: unset; scroll-margin: unset; scroll-margin-inline: unset; scroll-marker-group: unset; scroll-padding-block: unset; scroll-padding: unset; scroll-padding-inline: unset; scroll-snap-align: unset; scroll-snap-stop: unset; scroll-snap-type: unset; scroll-target-group: unset; scroll-timeline: unset; scrollbar-color: unset; scrollbar-gutter: unset; scrollbar-width: unset; shape-image-threshold: unset; shape-margin: unset; shape-outside: unset; shape-rendering: unset; size: unset; speak: unset; stop-color: unset; stop-opacity: unset; stroke: unset; stroke-dasharray: unset; stroke-dashoffset: unset; stroke-linecap: unset; stroke-linejoin: unset; stroke-miterlimit: unset; stroke-opacity: unset; stroke-width: unset; tab-size: unset; table-layout: unset; text-align: unset; text-align-last: unset; text-anchor: unset; text-autospace: unset; text-box: unset; text-combine-upright: unset; text-decoration: unset; text-decoration-skip-ink: unset; text-emphasis: unset; text-emphasis-position: unset; text-fit: unset; text-indent: unset; text-justify: unset; text-overflow: unset; text-shadow: unset; text-transform: unset; text-underline-offset: unset; text-underline-position: unset; text-wrap: unset; timeline-scope: unset; timeline-trigger: unset; touch-action: unset; transform: unset; transform-box: unset; transform-origin: unset; transform-style: unset; transition: unset; translate: unset; trigger-scope: unset; user-select: unset; vector-effect: unset; vertical-align: unset; view-timeline: unset; view-transition-class: unset; view-transition-group: unset; view-transition-name: unset; view-transition-scope: unset; visibility: unset; border-spacing: unset; -webkit-box-align: unset; -webkit-box-decoration-break: unset; -webkit-box-direction: unset; -webkit-box-flex: unset; -webkit-box-ordinal-group: unset; -webkit-box-orient: unset; -webkit-box-pack: unset; -webkit-box-reflect: unset; -webkit-line-break: unset; -webkit-line-clamp: unset; -webkit-mask-box-image: unset; -webkit-rtl-ordering: unset; -webkit-ruby-position: unset; -webkit-tap-highlight-color: unset; -webkit-text-combine: unset; -webkit-text-decorations-in-effect: unset; -webkit-text-fill-color: unset; -webkit-text-security: unset; -webkit-text-stroke: unset; -webkit-user-drag: unset; white-space-collapse: unset; widows: unset; will-change: unset; window-drag: unset; word-break: unset; word-spacing: unset; x: unset; y: unset; z-index: unset; flex: 1 1 0%; padding: 0.25rem 0.5rem; font-size: 1rem; line-height: 1.5rem; width: -webkit-fill-available !important; }
+
+input[_ngcontent-ng-c1991992502]:disabled { cursor: not-allowed !important; --tw-bg-opacity: 1 !important; background-color: rgb(246 247 248 / var(--tw-bg-opacity)) !important; --tw-text-opacity: 1 !important; color: rgb(112 112 112 / var(--tw-text-opacity)) !important; }
+
+.riyal-symbol-input-en[_ngcontent-ng-c1991992502]:has(+ input)[_ngcontent-ng-c1991992502] + input[_ngcontent-ng-c1991992502] { padding-left: 1.75rem; }
+
+.riyal-symbol-input-ar[_ngcontent-ng-c1991992502]:has(+ input)[_ngcontent-ng-c1991992502] + input[_ngcontent-ng-c1991992502] { padding-left: 1.75rem; }

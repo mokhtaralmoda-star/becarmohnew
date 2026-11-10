@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+[_nghost-ng-c3788762930] { position: relative; display: block; width: 11rem; }
+
+@media (max-width: 959px) {
+  [_nghost-ng-c3788762930] { width: 100%; }
+}
+
+.captcha-img[_ngcontent-ng-c3788762930] { margin-inline-start: calc(100% - 5.1rem); top: 30px; z-index: 10; }
+
+.captcha-icon-new-motor[_ngcontent-ng-c3788762930] { margin-inline-start: calc(100% - 7rem); z-index: 10; top: 3.3rem; }
+
+.captcha-img-new-motor[_ngcontent-ng-c3788762930] { margin-inline-start: calc(100% - 5.1rem); top: 46px; z-index: 10; }
+
+.isWareefCaptcha[_ngcontent-ng-c3788762930] { margin-inline-start: calc(100% - 5.1rem); z-index: 10; top: 1.9rem; }
+
+.isWareefCaptchaLoad[_ngcontent-ng-c3788762930] { margin-inline-start: calc(100% - 7rem); z-index: 10; top: 2.5rem; }
+
+.motor-captcha[_nghost-ng-c3788762930] .captcha-img[_ngcontent-ng-c3788762930] { top: 10px; }
+
+@media (max-width: 959px) {
+  .motor-captcha[_nghost-ng-c3788762930] .captcha-img[_ngcontent-ng-c3788762930] { top: -0.5rem !important; }
+}
+
+.medical-captcha[_nghost-ng-c3788762930] .captcha-img[_ngcontent-ng-c3788762930] { top: 15px !important; }
+
+.captcha-icon[_ngcontent-ng-c3788762930] { margin-inline-start: calc(100% - 7rem); z-index: 10; top: 2.5rem; }
+
+.motor-captcha[_nghost-ng-c3788762930] .captcha-icon[_ngcontent-ng-c3788762930] { top: 1.25rem !important; }
+
+.medical-captcha[_nghost-ng-c3788762930] .captcha-icon[_ngcontent-ng-c3788762930] { top: 1.5rem !important; }
+
+img[_ngcontent-ng-c3788762930] { height: 44px; border-end-end-radius: 0.3rem; border-start-end-radius: 0.3rem; }
+
+@keyframes _ngcontent-ng-c3788762930_bounce { 
+  0%, 100% { transform: translateY(-25%); animation-timing-function: cubic-bezier(0.8, 0, 1, 1); }
+  50% { transform: none; animation-timing-function: cubic-bezier(0, 0, 0.2, 1); }
+}
+
+.tokenExpire[_ngcontent-ng-c3788762930] { animation: 1s ease 0s infinite normal none running _ngcontent-ng-c3788762930_bounce; --tw-text-opacity: 1; color: rgb(255 65 65 / var(--tw-text-opacity)); }
+
+.shake[_ngcontent-ng-c3788762930] { animation: 0.5s ease 0s infinite normal none running _ngcontent-ng-c3788762930_shake; }
+
+@keyframes _ngcontent-ng-c3788762930_shake { 
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.captchaExpireError[_ngcontent-ng-c3788762930] { border: 0px solid transparent; border-radius: 0px 0px 5px 5px; padding: 5px 8px; color: red !important; width: 100% !important; --tw-bg-opacity: 1 !important; background-color: rgb(255 217 217 / var(--tw-bg-opacity)) !important; font-size: 0.75rem !important; line-height: 1rem !important; font-weight: 600 !important; }
+
+[_ngcontent-ng-c3788762930]:is(.dark .captchaExpireError)[_ngcontent-ng-c3788762930] { --tw-bg-opacity: 1 !important; background-color: rgb(29 35 50 / var(--tw-bg-opacity)) !important; }

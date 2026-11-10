@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+[_nghost-ng-c402534657] { display: block; }
+
+mat-radio-button[_ngcontent-ng-c402534657] { margin-inline-end: 10px; }
+
+.withImg[_ngcontent-ng-c402534657] { display: flex; width: 100%; justify-content: space-evenly; }
+
+@media (max-width: 599px) {
+  .withImg[_ngcontent-ng-c402534657] { flex-direction: column; text-align: center; }
+}
+
+.withImg[_ngcontent-ng-c402534657] mat-radio-button[_ngcontent-ng-c402534657] { margin-inline-end: 20px; margin-top: 0.75rem; }
+
+.withImg[_ngcontent-ng-c402534657] mat-radio-button[_ngcontent-ng-c402534657] img[_ngcontent-ng-c402534657] { height: 5rem; width: 9rem; border-radius: 0.5rem; border-width: 2px; --tw-border-opacity: 1; border-color: rgb(168 85 247 / var(--tw-border-opacity)); }
+
+.mat-radio-button[_ngcontent-ng-c402534657] ~ .mat-radio-button[_ngcontent-ng-c402534657] { margin-inline-end: 16px; }
+
+label[_ngcontent-ng-c402534657] { --tw-text-opacity: 1; color: rgb(37 99 235 / var(--tw-text-opacity)); }
+
+.theme-span[_ngcontent-ng-c402534657] { font-weight: 700; --tw-text-opacity: 1; color: rgb(20 99 148 / var(--tw-text-opacity)); }
+
+[_nghost-ng-c402534657] .mat-mdc-radio-button .mdc-radio { padding: 0px 0.25rem; }
+
+@media (max-width: 959px) {
+  [_nghost-ng-c402534657] .mat-mdc-radio-button .mdc-radio { padding: 0px; }
+}
+
+[_nghost-ng-c402534657] .mat-mdc-icon-button.mat-mdc-button-base { --mdc-icon-button-state-layer-size: 30px; padding: 0px; }

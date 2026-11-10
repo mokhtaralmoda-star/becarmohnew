@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+.bubble-frame[_ngcontent-ng-c2514452713] { margin-bottom: 0.75rem; display: flex; width: 3rem; cursor: pointer; justify-content: space-between; overflow: hidden; border-radius: 9999px; padding: 0.75rem; --tw-text-opacity: 1; color: rgb(255 255 255 / var(--tw-text-opacity)); transition-duration: 0.1s; }
+
+.bubble-frame[_ngcontent-ng-c2514452713]:hover { width: auto; }
+
+.bubble-frame-ltr[_ngcontent-ng-c2514452713] { direction: rtl; }
+
+.bubble-frame-rtl[_ngcontent-ng-c2514452713] { direction: ltr; }
+
+.bubble-frame-text[_ngcontent-ng-c2514452713] { transition: width 0.5s; order: 1; margin-inline-start: 0.5rem; display: flex; width: 0px; align-items: center; justify-content: center; overflow: hidden; white-space: nowrap; }
+
+.bubble-frame-icon[_ngcontent-ng-c2514452713] { display: flex; height: 100%; align-items: center; justify-content: center; }
+
+.bubble-frame[_ngcontent-ng-c2514452713]:hover .bubble-frame-text[_ngcontent-ng-c2514452713] { width: 7rem; }
+
+.bounce[_ngcontent-ng-c2514452713] { animation: 2s ease 0s infinite normal none running _ngcontent-ng-c2514452713_bounce; }
+
+@keyframes _ngcontent-ng-c2514452713_bounce { 
+  70% { transform: translateY(0px); }
+  80% { transform: translateY(-15%); }
+  90% { transform: translateY(0px); }
+  95% { transform: translateY(-7%); }
+  97% { transform: translateY(0px); }
+  99% { transform: translateY(-3%); }
+  100% { transform: translateY(0px); }
+}

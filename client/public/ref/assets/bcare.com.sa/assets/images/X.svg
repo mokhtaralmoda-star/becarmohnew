@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 10 10">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        fill: #146394;
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-2" width="10" height="10"/>
+    </clipPath>
+  </defs>
+  <rect id="Rectangle_33943" data-name="Rectangle 33943" class="cls-1" x="1.538" y="1.538" width="6.923" height="6.923"/>
+  <g class="cls-4">
+    <g id="Group_1303" data-name="Group 1303">
+      <path id="Path_1105" data-name="Path 1105" class="cls-3" d="M5,0c2.761,0,5,2.239,5,5s-2.239,5-5,5S0,7.761,0,5C.003,2.24,2.24.003,5,0M2.65,6.413c-.244.244-.244.64,0,.885.244.244.64.244.885,0l1.44-1.44,1.44,1.44c.244.244.64.244.885,0s.244-.64,0-.885l-1.441-1.44,1.44-1.44c.244-.244.244-.64,0-.885-.244-.244-.64-.244-.885,0h0l-1.44,1.44-1.439-1.439c-.244-.244-.64-.244-.885,0s-.244.64,0,.885l1.44,1.44-1.439,1.439Z"/>
+    </g>
+  </g>
+</svg>

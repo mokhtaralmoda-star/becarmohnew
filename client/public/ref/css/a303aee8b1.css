@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+div.mat-mdc-autocomplete-panel { box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px; width: 100%; max-height: 256px; visibility: hidden; transform-origin: center top; overflow: auto; padding: 8px 0px; border-radius: 4px; box-sizing: border-box; position: static; background-color: var(--mat-autocomplete-background-color); }
+
+.cdk-high-contrast-active div.mat-mdc-autocomplete-panel { outline: solid 1px; }
+
+.cdk-overlay-pane:not(.mat-mdc-autocomplete-panel-above) div.mat-mdc-autocomplete-panel { border-top-left-radius: 0px; border-top-right-radius: 0px; }
+
+.mat-mdc-autocomplete-panel-above div.mat-mdc-autocomplete-panel { border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; transform-origin: center bottom; }
+
+div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-visible { visibility: visible; }
+
+div.mat-mdc-autocomplete-panel.mat-mdc-autocomplete-hidden { visibility: hidden; }
+
+mat-autocomplete { display: none; }

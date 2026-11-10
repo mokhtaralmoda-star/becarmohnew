@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 30 30">
+  <defs>
+    <clipPath id="clippath">
+      <rect width="30" height="30" fill="none"/>
+    </clipPath>
+  </defs>
+  <path id="Path_5400" data-name="Path 5400" d="M15.18,13.51l-4.72-6.69h-2.52l5.85,8.29.74,1.04h0l5.01,7.09h2.52l-6.14-8.69-.74-1.04Z" fill="#126494"/>
+  <g id="Group_14231" data-name="Group 14231">
+    <g clip-path="url(#clippath)">
+      <g id="Group_14230" data-name="Group 14230">
+        <path id="Path_5401" data-name="Path 5401" d="M15,0C6.72,0,0,6.72,0,15s6.72,15,15,15,15-6.72,15-15S23.28,0,15,0M18.74,24.45l-5.04-7.34-6.31,7.34h-1.63l7.22-8.39L5.75,5.55h5.51l4.78,6.95,5.98-6.95h1.63l-6.89,8h0l7.49,10.9h-5.51Z" fill="#126494"/>
+      </g>
+    </g>
+  </g>
+</svg>

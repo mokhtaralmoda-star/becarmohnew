@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+[_nghost-ng-c1089803260] { display: block; width: 100%; }
+
+nav[_ngcontent-ng-c1089803260] .flex[_ngcontent-ng-c1089803260] a[_ngcontent-ng-c1089803260] [_ngcontent-ng-c1089803260] { pointer-events: none; }
+
+[_nghost-ng-c1089803260] nav .flex a svg { transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out; width: 24px !important; height: 24px !important; fill: rgb(20, 99, 148) !important; }
+
+[_nghost-ng-c1089803260] nav .flex a.text-white svg, [_nghost-ng-c1089803260] nav .flex a.active-tab svg, [_nghost-ng-c1089803260] nav .flex a.active-tab svg path { fill: rgb(255, 255, 255) !important; }
+
+[_nghost-ng-c1089803260] nav .flex a svg path[stroke-width="80"] { transition: stroke 0.2s ease-in-out, fill 0.2s ease-in-out; stroke: rgb(20, 99, 148) !important; fill: rgb(20, 99, 148) !important; }
+
+[_nghost-ng-c1089803260] nav .flex a.text-white svg path[stroke-width="80"] { stroke: rgb(255, 255, 255) !important; fill: rgb(255, 255, 255) !important; }
+
+[_nghost-ng-c1089803260] nav .flex a svg path[fill="#6d6d6f"], [_nghost-ng-c1089803260] nav .flex a svg path[fill="#6D6D6F"] { transition: fill 0.2s ease-in-out; fill: rgb(20, 99, 148) !important; }
+
+[_nghost-ng-c1089803260] nav .flex a.text-white svg path[fill="#6d6d6f"], [_nghost-ng-c1089803260] nav .flex a.text-white svg path[fill="#6D6D6F"] { fill: rgb(20, 99, 148) !important; }
+
+[_nghost-ng-c1089803260] nav .flex a.text-bcare-blue svg { fill: rgb(20, 99, 148) !important; }
+
+.no-scrollbar[_ngcontent-ng-c1089803260]::-webkit-scrollbar { display: none; }
+
+.no-scrollbar[_ngcontent-ng-c1089803260] { scrollbar-width: none; }
+
+.carousel-wrapper[_ngcontent-ng-c1089803260] { width: 100%; max-width: 100%; overflow: hidden; box-sizing: border-box; }
+
+.header-carousel[_ngcontent-ng-c1089803260] { display: flex; overflow: auto hidden; width: 100%; max-width: 100%; box-sizing: border-box; white-space: nowrap; scrollbar-width: none; }
+
+.header-carousel[_ngcontent-ng-c1089803260] > div[_ngcontent-ng-c1089803260] { min-width: 0px; }
+
+.header-carousel[_ngcontent-ng-c1089803260]::-webkit-scrollbar { display: none; }
+
+.carousel-item[_ngcontent-ng-c1089803260] { flex: 0 0 80px; text-align: center; }

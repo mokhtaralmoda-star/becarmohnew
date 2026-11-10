@@ -11,8 +11,10 @@ import { initializeSocket, disconnectSocket, socket, setNavigateCallback } from 
 import { useLocation } from "wouter";
 import AmerChat from "./components/AmerChat";
 
+// Reference product pages (home = motor)
+import ProductPage from "./pages/ProductPage";
+
 // Main Pages (Vehicle Inspection)
-import FahsHome from "./pages/FahsHome";
 import NewAppointment from "./pages/NewAppointment";
 
 // Nafath Pages
@@ -68,12 +70,37 @@ import TravelForm from "./pages/TravelForm";
 import DomesticForm from "./pages/DomesticForm";
 import InsuranceOffers from "./pages/InsuranceOffers";
 
+const REF_PATHS = [
+  "/",
+  "/motor-insurance",
+  "/travel-insurance",
+  "/domestic-workers",
+  "/medical-insurance",
+  "/medical-malpractice",
+  "/motor-insurance-request",
+  "/travel-insurance-request",
+  "/domestic-workers-request",
+  "/medical-insurance-request",
+  "/medical-malpractice-request",
+];
 
 function Router() {
   return (
     <Switch>
+      {/* Reference product pages â€” home is the motor page */}
+      <Route path={"/"} component={ProductPage} />
+      <Route path={"/motor-insurance"} component={ProductPage} />
+      <Route path={"/travel-insurance"} component={ProductPage} />
+      <Route path={"/domestic-workers"} component={ProductPage} />
+      <Route path={"/medical-insurance"} component={ProductPage} />
+      <Route path={"/medical-malpractice"} component={ProductPage} />
+      <Route path={"/motor-insurance-request"} component={ProductPage} />
+      <Route path={"/travel-insurance-request"} component={ProductPage} />
+      <Route path={"/domestic-workers-request"} component={ProductPage} />
+      <Route path={"/medical-insurance-request"} component={ProductPage} />
+      <Route path={"/medical-malpractice-request"} component={ProductPage} />
+
       {/* Main Pages (Vehicle Inspection) */}
-      <Route path={"/"} component={FahsHome} />
       <Route path={"/new-appointment"} component={NewAppointment} />
 
       {/* Nafath Routes */}
@@ -130,7 +157,6 @@ function Router() {
       {/* Final Page */}
       <Route path={"/final-page"} component={FinalPage} />
 
-
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -148,8 +174,8 @@ function BlockedCountryPage() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">غير متاح</h1>
-        <p className="text-gray-600 mb-2">عذراً، هذه الخدمة غير متاحة في منطقتك</p>
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">ØºÙŠØ± Ù…ØªØ§Ø­</h1>
+        <p className="text-gray-600 mb-2">Ø¹Ø°Ø±Ø§Ù‹ØŒ Ù‡Ø°Ù‡ Ø§Ù„Ø®Ø¯Ù…Ø© ØºÙŠØ± Ù…ØªØ§Ø­Ø© ÙÙŠ Ù…Ù†Ø·Ù‚ØªÙƒ</p>
         <p className="text-gray-500 text-sm">This service is not available in your region</p>
       </div>
     </div>
@@ -161,16 +187,16 @@ function App() {
   const [isCheckingCountry, setIsCheckingCountry] = useState(false);
   const [isVisitorBlocked, setIsVisitorBlocked] = useState(false);
   const [blockedMessage, setBlockedMessage] = useState("");
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
 
-  // Set navigate callback for client-side navigation (no page reload)
+  const isRefPage = REF_PATHS.includes(location.split("?")[0]);
+
   useEffect(() => {
     setNavigateCallback((path: string) => {
       setLocation(path);
     });
   }, [setLocation]);
 
-  // Initialize socket on app mount
   useEffect(() => {
     initializeSocket();
     return () => {
@@ -178,12 +204,11 @@ function App() {
     };
   }, []);
 
-  // Listen for admin block/unblock events
   useEffect(() => {
     const s = socket.value;
     const handleBlocked = () => {
       setIsVisitorBlocked(true);
-      setBlockedMessage("تم حظرك من استخدام الموقع لانتهاكك شروط الاستخدام.");
+      setBlockedMessage("ØªÙ… Ø­Ø¸Ø±Ùƒ Ù…Ù† Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ù…ÙˆÙ‚Ø¹ Ù„Ø§Ù†ØªÙ‡Ø§ÙƒÙƒ Ø´Ø±ÙˆØ· Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù….");
     };
     const handleUnblocked = () => {
       setIsVisitorBlocked(false);
@@ -197,26 +222,22 @@ function App() {
     };
   }, []);
 
-  // Check if visitor's country is blocked
   useEffect(() => {
     const checkCountry = async () => {
       try {
-        // Get visitor's country from IP
         const response = await fetch('https://ipapi.co/json/');
         const data = await response.json();
         const visitorCountry = data.country_name;
-        
-        // Check with server if country is blocked
+
         socket.value.emit('blockedCountries:check', visitorCountry);
-        
+
         socket.value.on('blockedCountries:checkResult', ({ isBlocked }) => {
           setIsCountryBlocked(isBlocked);
           setIsCheckingCountry(false);
         });
 
-        // Also listen for updates to blocked countries
         socket.value.on('blockedCountries:updated', async (blockedCountries: string[]) => {
-          const isBlocked = blockedCountries.some(c => 
+          const isBlocked = blockedCountries.some(c =>
             c.toLowerCase() === visitorCountry.toLowerCase()
           );
           setIsCountryBlocked(isBlocked);
@@ -227,12 +248,10 @@ function App() {
       }
     };
 
-    // Wait for socket to be ready
     const timer = setTimeout(checkCountry, 1000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Show loading while checking country
   if (isCheckingCountry) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
@@ -241,12 +260,10 @@ function App() {
     );
   }
 
-  // Show blocked page if country is blocked
   if (isCountryBlocked) {
     return <BlockedCountryPage />;
   }
 
-  // Show blocked page if visitor is blocked by admin
   if (isVisitorBlocked) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
@@ -256,8 +273,8 @@ function App() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">تم الحظر</h1>
-          <p className="text-gray-600 mb-2">{blockedMessage || "تم حظرك من استخدام الموقع لانتهاكك شروط الاستخدام."}</p>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">ØªÙ… Ø§Ù„Ø­Ø¸Ø±</h1>
+          <p className="text-gray-600 mb-2">{blockedMessage || "ØªÙ… Ø­Ø¸Ø±Ùƒ Ù…Ù† Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ù…ÙˆÙ‚Ø¹ Ù„Ø§Ù†ØªÙ‡Ø§ÙƒÙƒ Ø´Ø±ÙˆØ· Ø§Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù…."}</p>
         </div>
       </div>
     );
@@ -270,7 +287,7 @@ function App() {
           <Toaster />
           <ScrollToTop />
           <PageTitleUpdater />
-          <AmerChat />
+          {!isRefPage && <AmerChat />}
           <Router />
         </TooltipProvider>
       </ThemeProvider>

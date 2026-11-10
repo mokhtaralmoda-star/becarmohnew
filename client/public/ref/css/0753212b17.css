@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.motorNationalDay[_ngcontent-ng-c56256387] { background-image: url("/__l5e/assets-v1/1c39b9ac-06b1-4501-8b75-1cf5b77c8453/WEB_AR.cb2718084b66c436.jpg"); background-size: 100% 100%; background-repeat: no-repeat; }
+
+[dir="ltr"][_nghost-ng-c56256387] .motorNationalDay[_ngcontent-ng-c56256387], [dir="ltr"] [_nghost-ng-c56256387] .motorNationalDay[_ngcontent-ng-c56256387] { background-image: url("/__l5e/assets-v1/34cde60a-b2e1-4755-817d-0d798fd923df/WEB_EN.3c4c2901ee219af4.jpg"); }
+
+@media (max-width: 640px) {
+  .motorNationalDay[_ngcontent-ng-c56256387] { background-image: url("/__l5e/assets-v1/ab173279-1987-46e4-9395-27cb08d17017/MOBILE_AR.fb254bccdc2a51af.jpg"); }
+  [dir="ltr"][_nghost-ng-c56256387] .motorNationalDay[_ngcontent-ng-c56256387], [dir="ltr"] [_nghost-ng-c56256387] .motorNationalDay[_ngcontent-ng-c56256387] { background-image: url("/__l5e/assets-v1/03a2f895-e0a9-4f74-bd96-829cf3859bb3/MOBILE_EN.cf6a4315ef7f777a.jpg"); }
+}

@@ -1,0 +1,3 @@
+@charset "utf-8";
+
+.cdk-high-contrast-active .mat-mdc-button:not(.mdc-button--outlined), .cdk-high-contrast-active .mat-mdc-unelevated-button:not(.mdc-button--outlined), .cdk-high-contrast-active .mat-mdc-raised-button:not(.mdc-button--outlined), .cdk-high-contrast-active .mat-mdc-outlined-button:not(.mdc-button--outlined), .cdk-high-contrast-active .mat-mdc-icon-button { outline: solid 1px; }

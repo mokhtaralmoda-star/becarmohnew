@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <circle id="Ellipse_282" data-name="Ellipse 282" cx="35" cy="35" r="35" fill="#ebf2fa"/>
+  <g id="Group_14496" data-name="Group 14496">
+    <rect id="Rectangle_36263" data-name="Rectangle 36263" x="32" y="32.46" width="20" height="4" fill="#f9a52d"/>
+    <rect id="Rectangle_36264" data-name="Rectangle 36264" x="17" y="44.46" width="12" height="4" fill="#f9a52d"/>
+    <path id="Union_3" data-name="Union 3" d="M25,41.46v-4.33h-8v-4.33h8v-4.33h4v13h-4Z" fill="#136494"/>
+    <path id="Union_1" data-name="Union 1" d="M40,30.46v-13h4v4.33h8v4.33h-8v4.33h-4Z" fill="#136494"/>
+    <path id="Union_2" data-name="Union 2" d="M32,52.46v-13h4v4.33h16v4.33h-16v4.33h-4Z" fill="#136494"/>
+    <rect id="Rectangle_36271" data-name="Rectangle 36271" x="17" y="21.46" width="20" height="4" fill="#f9a52d"/>
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+[_nghost-ng-c4010264437] { display: block; }
+
+.init-item[_ngcontent-ng-c4010264437]::after { content: ""; position: absolute; --tw-bg-opacity: 1; background-color: rgb(203 213 225 / var(--tw-bg-opacity)); }
+
+@media (max-width: 959px) {
+  .init-item[_ngcontent-ng-c4010264437]::after { display: none; }
+}
+
+.init-item[_ngcontent-ng-c4010264437]::after { margin-inline-start: 100%; width: 0.08rem; height: 2.7rem; top: 49px; }
+
+.init-custom-tab-item[_ngcontent-ng-c4010264437] { cursor: pointer; border-bottom-left-radius: unset !important; border-bottom-right-radius: unset !important; }
+
+@keyframes _ngcontent-ng-c4010264437_blinking { 
+  0% { background-color: rgb(230, 244, 244); border: 1px solid rgb(230, 244, 244); border-radius: 5px; }
+  100% { background-color: rgb(255, 221, 218); border: 1px solid rgb(255, 221, 218); border-radius: 5px; }
+}
+
+.bounce-containar[_ngcontent-ng-c4010264437] { animation: 1s ease 0s infinite normal none running _ngcontent-ng-c4010264437_blinking; margin-top: 0.25rem; }
