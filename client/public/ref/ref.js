@@ -659,3 +659,20 @@
   setTimeout(kill, 800);
   setTimeout(kill, 2000);
 })();
+
+(function () {
+  var s = document.createElement('style');
+  s.textContent = 'bcare-landing-product-nav nav div[class*="linear-gradient"]{display:none !important}' +
+    '#exclusive-offers-discounts div[class*="linear-gradient"]{display:none !important}';
+  document.head.appendChild(s);
+  function kill() {
+    var els = document.querySelectorAll('bcare-landing-product-nav nav div, #exclusive-offers-discounts div');
+    for (var i = 0; i < els.length; i++) {
+      var c = els[i].getAttribute('class') || '';
+      if (c.indexOf('linear-gradient') > -1) els[i].style.setProperty('display', 'none', 'important');
+    }
+  }
+  kill();
+  setTimeout(kill, 300);
+  setTimeout(kill, 1500);
+})();
