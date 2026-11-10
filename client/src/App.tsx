@@ -152,7 +152,11 @@ function Router() {
       <Route path={"/malpractice-form"} component={MalpracticeForm} />
       <Route path={"/travel-form"} component={TravelForm} />
       <Route path={"/domestic-form"} component={DomesticForm} />
-      <Route path={"/insurance-offers"} component={InsuranceOffers} />
+      <Route path={"/insurance-offers"} component={() => <InsuranceOffers category="medical" />} />
+      <Route path={"/medical-offers"} component={() => <InsuranceOffers category="medical" />} />
+      <Route path={"/malpractice-offers"} component={() => <InsuranceOffers category="malpractice" />} />
+      <Route path={"/travel-offers"} component={() => <InsuranceOffers category="travel" />} />
+      <Route path={"/domestic-offers"} component={() => <InsuranceOffers category="domestic" />} />
 
       {/* Final Page */}
       <Route path={"/final-page"} component={FinalPage} />
