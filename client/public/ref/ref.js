@@ -668,4 +668,16 @@
   var s = document.createElement('style');
   s.textContent = 'bcare-landing-product-nav a.carousel-item{flex:0 0 auto !important;min-width:0 !important}';
   document.head.appendChild(s);
+})();;(function(){
+  if(document.getElementById('patch-v18'))return;
+  var s=document.createElement('style');
+  s.id='patch-v18';
+  s.textContent=`
+html,body{overflow-x:hidden!important;max-width:100%!important}
+.bcare-landing-product-nav{max-width:100%!important;width:100%!important;overflow:hidden!important;box-sizing:border-box!important;padding:0 4px!important;position:relative!important;z-index:50!important;background:#fff!important}
+.bcare-landing-product-nav .carousel-item{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;font-size:11px!important;line-height:1.2!important;padding:4px 2px!important;transform:none!important}
+.bcare-landing-product-nav .carousel-item img{max-width:22px!important;height:auto!important;margin:0 auto 2px!important}
+.bcare-landing-product-nav .carousel-item span,.bcare-landing-product-nav .carousel-item div{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}
+  `;
+  document.head.appendChild(s);
 })();
