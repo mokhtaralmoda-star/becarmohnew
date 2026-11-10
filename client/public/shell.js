@@ -30,6 +30,7 @@
   if (!host) return;
 
   var v = window.innerWidth < 960 ? "-m" : "-t";
+  var lang = "ar";
 
   var st = document.createElement("style");
   st.textContent = "@keyframes shspin{to{transform:rotate(360deg)}}";
@@ -74,32 +75,33 @@
     var p = norm();
     if (!MAP[p]) { host.style.display = "none"; return; }
     host.style.display = "";
-    var src = "/ref/" + MAP[p] + "-ar" + v + ".html";
+    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html";
     if (src !== current) { current = src; frame.src = src; }
   }
 
-  function go(p) {
+  function go(p, nextLang) {
     if (!p) return;
     p = String(p).split("?")[0];
-    if (p === norm()) return;
-    history.pushState({}, "", p);
-    apply();
+    var changed = false;
+    if ((nextLang === "ar" || nextLang === "en") && nextLang !== lang) { lang = nextLang; changed = true; }
+    if (p !== norm()) { history.pushState({}, "", p); changed = true; }
+    if (changed) apply();
   }
 
-  function nav(to) {
+  function nav(to, nextLang) {
     to = String(to).split("?")[0];
     var here = norm();
     if (to === "/motor-insurance" || to === "/motor-insurance-request") {
-      if (here === "/motor-insurance-request") { go("/new-appointment"); return; }
-      go("/motor-insurance-request"); return;
+      if (here === "/motor-insurance-request") { go("/new-appointment", nextLang); return; }
+      go("/motor-insurance-request", nextLang); return;
     }
-    if (REQ[to]) { go(to); return; }
-    go(to);
+    if (REQ[to]) { go(to, nextLang); return; }
+    go(to, nextLang);
   }
 
   window.addEventListener("message", function (e) {
     if (e.origin !== location.origin || !e.data) return;
-    if (e.data.type === "ref-nav" && typeof e.data.to === "string") { nav(e.data.to); return; }
+    if (e.data.type === "ref-nav" && typeof e.data.to === "string") { nav(e.data.to, e.data.lang); return; }
     if (e.data.type === "ref-chat-send") {
       var d = e.data;
       var txt = (d.text || "").trim();
