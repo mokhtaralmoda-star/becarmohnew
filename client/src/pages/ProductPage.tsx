@@ -234,7 +234,7 @@ export default function ProductPage() {
         setLocation("/motor-insurance-request");
         return;
       }
-      if (REQUEST_PAGES[to]) { setLocation(FORM_ROUTES[to] ?? to); return; }
+      if (REQUEST_PAGES[to]) { setLocation(to); return; }
       if (PRODUCT_PAGES[to]) setLocation(to);
     };
     window.addEventListener("message", onMessage);
