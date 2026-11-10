@@ -681,36 +681,3 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
   `;
   document.head.appendChild(s);
 })();
-;(function(){
-  if(document.getElementById('patch-v19'))return;
-  var s=document.createElement('style');
-  s.id='patch-v19';
-  s.textContent=`
-html,body{overflow-x:hidden!important}
-.bcare-landing-product-nav,.bcare-landing-product-nav nav,.carousel-wrapper{max-width:100%!important;width:100%!important}
-.header-carousel{max-width:100%!important;width:100%!important;overflow-x:hidden!important;padding-left:4px!important;padding-right:4px!important;box-sizing:border-box!important}
-.header-carousel>div{gap:2px!important;width:100%!important;box-sizing:border-box!important}
-.header-carousel .carousel-item{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;padding:4px 1px!important;gap:2px!important;justify-content:center!important}
-.header-carousel .carousel-item span{font-size:10px!important;line-height:1.15!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;display:block!important;min-width:0!important}
-.header-carousel .carousel-item svg,.header-carousel .carousel-item img{width:18px!important;height:18px!important;flex-shrink:0!important}
-  `;
-  document.head.appendChild(s);
-})();
-;(function(){
-  if(document.getElementById('patch-v20'))return;
-  var s=document.createElement('style');
-  s.id='patch-v20';
-  s.textContent=`
-html{overflow-x:visible!important;max-width:none!important}
-body{overflow-x:hidden!important;max-width:100vw!important}
-.bcare-landing-product-nav{max-width:100vw!important;width:100%!important;overflow:hidden!important;padding:0!important}
-.bcare-landing-product-nav nav,.carousel-wrapper{max-width:100%!important;width:100%!important}
-.header-carousel{max-width:100%!important;width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch!important;padding:0 4px!important;box-sizing:border-box!important}
-.header-carousel>div{width:auto!important;gap:4px!important;padding-right:8px!important}
-.header-carousel .carousel-item{flex:0 0 auto!important;min-width:0!important;width:auto!important;max-width:none!important;padding:4px 8px!important;gap:4px!important}
-.header-carousel .carousel-item span{font-size:12px!important;white-space:nowrap!important}
-.header-carousel .carousel-item svg,.header-carousel .carousel-item img{width:20px!important;height:20px!important;flex-shrink:0!important}
-.header-carousel::-webkit-scrollbar{display:none!important}
-  `;
-  document.head.appendChild(s);
-})();
