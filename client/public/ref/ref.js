@@ -669,3 +669,29 @@
   s.textContent = 'bcare-landing-product-nav a.carousel-item{flex:0 0 auto !important;min-width:0 !important}';
   document.head.appendChild(s);
 })();
+
+(function () {
+  var s = document.createElement('style');
+  s.textContent =
+    'bcare-landing-product-nav .header-carousel{max-width:100% !important;width:100% !important}' +
+    '#exclusive-offers-discounts .header-carousel{max-width:100% !important;width:100% !important}' +
+    'bcare-landing-product-nav a.carousel-item{flex:0 0 auto !important}';
+  document.head.appendChild(s);
+  function clean() {
+    var nav = document.querySelector('bcare-landing-product-nav nav');
+    if (!nav) return;
+    var kids = nav.querySelectorAll('a.carousel-item');
+    for (var i = 0; i < kids.length; i++) {
+      if (!(kids[i].textContent || '').trim()) kids[i].parentNode.removeChild(kids[i]);
+    }
+    var ds = nav.querySelectorAll('div');
+    for (var j = 0; j < ds.length; j++) {
+      var c = ds[j].getAttribute('class') || '';
+      if (c.indexOf('pointer-events-none') > -1 || c.indexOf('linear-gradient') > -1) {
+        ds[j].style.setProperty('display', 'none', 'important');
+      }
+    }
+  }
+  clean();
+  var n = 0, tm = setInterval(function () { clean(); if (++n > 30) clearInterval(tm); }, 200);
+})();
