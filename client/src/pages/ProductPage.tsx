@@ -4,7 +4,7 @@ import { useLocation } from "wouter";
 const TABLET_BELOW = 960;
 const PHONE_BELOW = 600;
 
-// Ã˜Â§Ã™â€žÃ˜ÂªÃ˜Â¨Ã™Ë†Ã™Å Ã˜Â¨Ã˜Â§Ã˜Âª Ã˜ÂªÃ™ÂÃ˜ÂªÃ˜Â­ Ã˜ÂµÃ™ÂÃ˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ™â€¦Ã™â€ Ã˜ÂªÃ˜Â¬ (landing)
+// التبويبات تفتح صفحة المنتج (landing)
 const PRODUCT_PAGES: Record<string, string> = {
   "/": "home",
   "/motor-insurance": "home",
@@ -14,7 +14,7 @@ const PRODUCT_PAGES: Record<string, string> = {
   "/medical-malpractice": "landing-mm",
 };
 
-// Ã˜Â²Ã˜Â± Ã‚Â«Ã˜Â·Ã™â€žÃ˜Â¨ Ã˜Â§Ã™â€žÃ˜Â¹Ã˜Â±Ã™Ë†Ã˜Â¶Ã‚Â» Ã™Å Ã™ÂÃ˜ÂªÃ˜Â­ Ã˜ÂµÃ™ÂÃ˜Â­Ã˜Â© Ã˜Â·Ã™â€žÃ˜Â¨ Ã˜Â§Ã™â€žÃ˜Â¹Ã˜Â±Ã™Ë†Ã˜Â¶
+// زر «طلب العروض» يفتح صفحة طلب العروض
 const REQUEST_PAGES: Record<string, string> = {
   "/motor-insurance-request": "motor",
   "/travel-insurance-request": "travel",
@@ -23,7 +23,7 @@ const REQUEST_PAGES: Record<string, string> = {
   "/medical-malpractice-request": "mm",
 };
 
-// Ã˜Â²Ã˜Â± Ã‚Â«Ã˜Â¥Ã˜Â¸Ã™â€¡Ã˜Â§Ã˜Â± Ã˜Â§Ã™â€žÃ˜Â¹Ã˜Â±Ã™Ë†Ã˜Â¶Ã‚Â» Ã˜Â¯Ã˜Â§Ã˜Â®Ã™â€ž Ã˜ÂµÃ™ÂÃ˜Â­Ã˜Â© Ã˜Â§Ã™â€žÃ˜Â·Ã™â€žÃ˜Â¨ Ã™Å Ã™Æ’Ã™â€¦Ã™â€˜Ã™â€ž Ã™â€žÃ™â€ Ã™â€¦Ã™Ë†Ã˜Â°Ã˜Â¬ Ã˜Â§Ã™â€žÃ™â€¦Ã˜Â´Ã˜Â±Ã™Ë†Ã˜Â¹
+// زر «إظهار العروض» داخل صفحة الطلب يكمّل لنموذج المشروع
 const FORM_ROUTES: Record<string, string> = {
   "/motor-insurance-request": "/new-appointment",
   "/travel-insurance-request": "/travel-form",
@@ -65,15 +65,7 @@ export default function ProductPage() {
         setLocation("/motor-insurance-request");
         return;
       }
-      if (REQUEST_PAGES[to]) {
-        const form = FORM_ROUTES[to];
-        if (here === to && form) {
-          setLocation(form);
-          return;
-        }
-        setLocation(to);
-        return;
-      }
+      if (REQUEST_PAGES[to]) { setLocation(to); return; }
       if (PRODUCT_PAGES[to]) setLocation(to);
     };
     window.addEventListener("message", onMessage);
@@ -85,6 +77,29 @@ export default function ProductPage() {
     document.documentElement.lang = lang;
   }, [lang]);
 
+  // زر «إظهار العروض» داخل صفحة الطلب يكمّل لنموذج المشروع
+  useEffect(() => {
+    const el = frame.current;
+    const form = FORM_ROUTES[path];
+    if (!el || !form) return;
+    const onClick = (ev: MouseEvent) => {
+      const target = ev.target as HTMLElement | null;
+      const btn = target?.closest("button");
+      if (!btn) return;
+      const label = (btn.textContent || "").replace(/\s+/g, " ").trim();
+      if (label !== "إظهار العروض" && label !== "Show Offers") return;
+      ev.preventDefault();
+      setLocation(form);
+    };
+    const attach = () => el.contentDocument?.addEventListener("click", onClick, true);
+    attach();
+    el.addEventListener("load", attach);
+    return () => {
+      el.removeEventListener("load", attach);
+      el.contentDocument?.removeEventListener("click", onClick, true);
+    };
+  }, [path, variant, lang, setLocation]);
+
   if (variant === null) return <div className="fixed inset-0 bg-white" />;
 
   return (
@@ -92,7 +107,7 @@ export default function ProductPage() {
       ref={frame}
       key={`${name}-${lang}${variant}`}
       src={`/ref/${name}-${lang}${variant}.html`}
-      title="Ã˜Â¨Ã™Å  Ã™Æ’Ã™Å Ã˜Â±"
+      title="بي كير"
       className="fixed inset-0 h-dvh w-full border-0 bg-white"
     />
   );
