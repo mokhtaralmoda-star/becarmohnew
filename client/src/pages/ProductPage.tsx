@@ -4,6 +4,7 @@ import { socket } from "@/lib/store";
 
 const TABLET_BELOW = 960;
 const PHONE_BELOW = 600;
+const MOBILE = typeof window !== "undefined" && /iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent);
 const LOGO = "/ref/assets/bcare.com.sa/assets/images/Bcare-logo.svg";
 
 const PRODUCT_PAGES: Record<string, string> = {
@@ -151,6 +152,9 @@ export default function ProductPage() {
   const [showOverlay, setShowOverlay] = useState(false);
   const frame = useRef<HTMLIFrameElement>(null);
   const code = useRef("");
+  const getFrame = () =>
+    frame.current ||
+    ((window as unknown as { __shellFrame?: HTMLIFrameElement }).__shellFrame ?? null);
 
   useEffect(() => {
     const update = () => {
@@ -199,7 +203,7 @@ export default function ProductPage() {
   }, [lang, variant]);
 
   useEffect(() => {
-    const el = frame.current;
+    const el = getFrame();
     if (!el) return;
     const setup = () => {
       const doc = el.contentDocument;
@@ -232,11 +236,11 @@ export default function ProductPage() {
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
       if (e.origin !== window.location.origin) return;
-      if (e.source !== frame.current?.contentWindow) return;
+      if (e.source !== getFrame()?.contentWindow) return;
 
       const data = e.data as { type?: string; to?: string; lang?: string; id?: string; text?: string };
       const reply = (id: string, ok: boolean, reason?: string) => {
-        frame.current?.contentWindow?.postMessage(
+        getFrame()?.contentWindow?.postMessage(
           { type: "ref-chat-result", id, ok, reason },
           window.location.origin,
         );
@@ -255,6 +259,7 @@ export default function ProductPage() {
         return;
       }
       if (data?.type !== "ref-nav" || typeof data.to !== "string") return;
+      if (MOBILE) return;
       if (data.lang === "en" || data.lang === "ar") setLang(data.lang);
       const to = data.to.split("?")[0];
       const here = window.location.pathname.split("?")[0];
@@ -279,7 +284,7 @@ export default function ProductPage() {
       const text = typeof p === "string" ? p : p?.message ?? "";
       console.log("[chat] admin -> visitor:", text);
       if (!text) return;
-      frame.current?.contentWindow?.postMessage(
+      getFrame()?.contentWindow?.postMessage(
         { type: "ref-chat-incoming", text },
         window.location.origin,
       );
@@ -289,7 +294,7 @@ export default function ProductPage() {
   }, []);
 
   useEffect(() => {
-    const el = frame.current;
+    const el = getFrame();
     const form = FORM_ROUTES[path];
     if (!el || !form) return;
     const onClick = (ev: MouseEvent) => {
@@ -322,6 +327,8 @@ export default function ProductPage() {
       el.contentDocument?.removeEventListener("click", onClick, true);
     };
   }, [path, variant, lang, setLocation]);
+
+  if (MOBILE) return null;
 
   if (variant === null) return <div className="fixed inset-0 bg-white" />;
 

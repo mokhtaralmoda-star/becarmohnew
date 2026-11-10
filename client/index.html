@@ -95,24 +95,8 @@
       </div>
     </noscript>
     <div id="root"></div>
-    <script>
-      (function () {
-        var w = window.innerWidth;
-        var v = w < 600 ? "-m" : w < 960 ? "-t" : "";
-        var root = document.getElementById("root");
-        var f = document.createElement("iframe");
-        f.src = "/ref/home-ar" + v + ".html";
-        f.title = "بي كير";
-        f.setAttribute("data-boot", "1");
-        f.style.cssText = "position:fixed;inset:0;height:100vh;width:100%;border:0;background:#f7f7f7";
-        root.appendChild(f);
-        var mo = new MutationObserver(function () {
-          if (root.querySelector("iframe:not([data-boot])")) { f.remove(); mo.disconnect(); }
-        });
-        mo.observe(root, { childList: true, subtree: true });
-        setTimeout(function () { mo.disconnect(); }, 20000);
-      })();
-    </script>
+    <div id="shell"></div>
+    <script src="/shell.js"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 
