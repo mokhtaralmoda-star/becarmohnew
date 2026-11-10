@@ -753,3 +753,17 @@ body{overflow-x:hidden!important;max-width:100vw!important}
   `;
   document.head.appendChild(s);
 })();
+;(function(){
+  if(document.getElementById("patch-v23"))return;
+  var s=document.createElement("style");
+  s.id="patch-v23";
+  s.textContent=`
+.header-carousel{max-width:100%!important;width:100%!important;padding:0 8px!important;box-sizing:border-box!important;overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch!important}
+.header-carousel>div{gap:3px!important;width:100%!important;box-sizing:border-box!important;padding:0!important}
+.header-carousel .carousel-item{flex:1 1 0!important;min-width:0!important;width:auto!important;max-width:none!important;padding:4px 2px!important;gap:3px!important;justify-content:center!important}
+.header-carousel .carousel-item span{font-size:10px!important;line-height:1.1!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;display:block!important;min-width:0!important;text-align:center!important}
+.header-carousel .carousel-item svg,.header-carousel .carousel-item img{width:16px!important;height:16px!important;flex-shrink:0!important}
+.header-carousel::-webkit-scrollbar{display:none!important}
+  `;
+  document.head.appendChild(s);
+})();
