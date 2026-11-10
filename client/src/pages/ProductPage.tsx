@@ -51,13 +51,28 @@ export default function ProductPage() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // شاشة انتظار تظهر فقط لو تأخر التحميل
+  // كل تنقّل يبدأ من جديد
   useEffect(() => {
     setBusy(true);
-    if (!busy) return;
-    const t = setTimeout(() => setShowOverlay(true), 120);
-    return () => clearTimeout(t);
-  }, [name, lang, variant, busy]);
+    setShowOverlay(false);
+  }, [name, lang, variant]);
+
+  // الشاشة تظهر لو تأخر التحميل، وتختفي أول ما يخلص
+  useEffect(() => {
+    if (!busy) {
+      setShowOverlay(false);
+      return;
+    }
+    const show = setTimeout(() => setShowOverlay(true), 120);
+    const guard = setTimeout(() => {
+      setBusy(false);
+      setShowOverlay(false);
+    }, 8000);
+    return () => {
+      clearTimeout(show);
+      clearTimeout(guard);
+    };
+  }, [busy]);
 
   // تجهيز الصفحات في الكاش
   useEffect(() => {
@@ -133,10 +148,7 @@ export default function ProductPage() {
         key={`${name}-${lang}${variant}`}
         src={`/ref/${name}-${lang}${variant}.html`}
         title="بي كير"
-        onLoad={() => {
-          setBusy(false);
-          setShowOverlay(false);
-        }}
+        onLoad={() => setBusy(false)}
         className="fixed inset-0 h-dvh w-full border-0 bg-[#f7f7f7]"
       />
 
