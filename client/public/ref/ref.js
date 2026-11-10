@@ -44,13 +44,17 @@
     if (chatAlertTimer) { clearInterval(chatAlertTimer); chatAlertTimer = null; }
     if (chatAlertEl && chatAlertEl.parentNode) chatAlertEl.parentNode.removeChild(chatAlertEl);
     chatAlertEl = null;
-    document.querySelectorAll('.bubble-frame.ref-alert').forEach(function (b) { b.classList.remove('ref-alert'); });
+    document.querySelectorAll('.bubble-frame').forEach(function (b) { b.classList.remove('ref-alert'); b.style.removeProperty('background-color'); b.style.removeProperty('background'); b.style.removeProperty('animation'); });
   }
 
   function showChatAlert() {
-    var btn = document.querySelector('bcare-bubbles .bubble-frame');
+    var btn = document.querySelector('bcare-bubbles .bubble-frame') || document.querySelector('.bubble-frame');
+    console.log('[chat-alert] btn=', !!btn, 'open=', !!(chatBox && !chatBox.hidden));
     if (!btn) return;
     btn.classList.add('ref-alert');
+    btn.style.setProperty('background-color', '#dc2626', 'important');
+    btn.style.setProperty('background', '#dc2626', 'important');
+    btn.style.setProperty('animation', 'ref-pulse 1s ease-in-out infinite', 'important');
     if (chatAlertEl) return;
     chatAlertEl = document.createElement('div');
     chatAlertEl.className = 'ref-chat-alert';
@@ -82,6 +86,7 @@
   window.addEventListener('message', function (e) {
     if (e.origin !== location.origin || !e.data || e.data.type !== 'ref-chat-incoming') return;
     if (typeof e.data.text !== 'string') return;
+    console.log('[chat-alert] incoming; hidden=', !chatBox || chatBox.hidden);
     if (chatBox && !chatBox.hidden) return;
     pendingIncoming.push(e.data.text);
     showChatAlert();
