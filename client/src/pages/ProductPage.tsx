@@ -112,6 +112,7 @@ function drawCaptcha(el: HTMLIFrameElement): string | null {
   if (err) err.hidden = true;
   return code;
 }
+
 function showCaptchaError(el: HTMLIFrameElement) {
   const doc = el.contentDocument;
   const host = doc?.querySelector("bcare-presentation-captcha-input") as HTMLElement | null;
@@ -122,7 +123,7 @@ function showCaptchaError(el: HTMLIFrameElement) {
   if (!err) {
     err = doc.createElement("p");
     err.className = "ref-captcha-err";
-    err.textContent = "Ø±Ù…Ø² Ø§Ù„ØªØ­Ù‚Ù‚ ØºÙŠØ± ØµØ­ÙŠØ­";
+    err.textContent = "رمز التحقق غير صحيح";
     err.style.cssText =
       "background:#fde8e8;color:#c82333;font-size:12px;line-height:1.6;padding:4px 8px;margin:4px 0 0;text-align:start;border-radius:4px";
     host.appendChild(err);
@@ -188,7 +189,6 @@ export default function ProductPage() {
     return () => links.forEach((l) => l.remove());
   }, [lang, variant]);
 
-  // ÙƒØ§Ø¨ØªØ´Ø§ Ø¬Ø¯ÙŠØ¯Ø© Ù„ÙƒÙ„ ØªØ­Ù…ÙŠÙ„ ÙˆÙ„ÙƒÙ„ Ù†Ù‚Ø±Ø© Ø¹Ù„Ù‰ Ø§Ù„ØªØ­Ø¯ÙŠØ«
   useEffect(() => {
     const el = frame.current;
     if (!el) return;
@@ -246,7 +246,6 @@ export default function ProductPage() {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  // Ø²Ø± Â«Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø¹Ø±ÙˆØ¶Â» Ù…Ø¹ Ø§Ù„ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„ÙƒØ§Ø¨ØªØ´Ø§
   useEffect(() => {
     const el = frame.current;
     const form = FORM_ROUTES[path];
@@ -256,10 +255,10 @@ export default function ProductPage() {
       const btn = target?.closest("button");
       if (!btn) return;
       const label = (btn.textContent || "").replace(/\s+/g, " ").trim();
-      if (label !== "Ø¥Ø¸Ù‡Ø§Ø± Ø§Ù„Ø¹Ø±ÙˆØ¶" && label !== "Show Offers") return;
+      if (label !== "إظهار العروض" && label !== "Show Offers") return;
 
       const input = el.contentDocument?.querySelector(
-        'bcare-presentation-captcha-input input',
+        "bcare-presentation-captcha-input input",
       ) as HTMLInputElement | null;
       if (input && code.current && input.value.trim() !== code.current) {
         ev.preventDefault();
@@ -288,7 +287,7 @@ export default function ProductPage() {
         ref={frame}
         key={`${name}-${lang}${variant}`}
         src={`/ref/${name}-${lang}${variant}.html`}
-        title="Ø¨ÙŠ ÙƒÙŠØ±"
+        title="بي كير"
         onLoad={() => setBusy(false)}
         className="fixed inset-0 h-dvh w-full border-0 bg-[#f7f7f7]"
       />
@@ -298,13 +297,13 @@ export default function ProductPage() {
           dir="rtl"
           className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-white"
         >
-          <img src={LOGO} alt="Ø¨ÙŠ ÙƒÙŠØ±" className="h-12 md:h-14" />
+          <img src={LOGO} alt="بي كير" className="h-12 md:h-14" />
           <div
             className="h-10 w-10 animate-spin rounded-full border-[3px] border-[#dbe6ee]"
             style={{ borderTopColor: "#146394" }}
           />
           <p className="text-sm font-bold" style={{ color: "#146394" }}>
-            Ø¬Ø§Ø±Ù Ø§Ù„ØªØ­Ù…ÙŠÙ„...
+            جارٍ التحميل...
           </p>
         </div>
       )}
