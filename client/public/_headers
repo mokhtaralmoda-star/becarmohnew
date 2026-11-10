@@ -4,3 +4,9 @@
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: no-referrer
   Permissions-Policy: interest-cohort=()
+
+/ref/*.html
+  Cache-Control: no-cache, max-age=0, must-revalidate
+
+/ref/*.js
+  Cache-Control: no-cache, max-age=0, must-revalidate
