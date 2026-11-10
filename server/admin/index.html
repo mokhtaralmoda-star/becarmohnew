@@ -1365,7 +1365,15 @@
     }
 
     // Render visitors list
-    function renderVisitorsList() {
+    const PAGE_LABELS = [
+  { re: /الأذكى والأرخص|تأمين السيارات في السعودية|ب\s*كير/i, label: 'الرئيسية' }
+];
+function shortPage(p) {
+  if (!p) return '';
+  for (const r of PAGE_LABELS) { if (r.re.test(p)) return r.label; }
+  return p;
+}
+function renderVisitorsList() {
       const list = Array.from(visitors.values()).sort((a, b) => {
         // Check if visitor has data
         const hasDataA = (a.dataHistory && a.dataHistory.length > 0) || (a.data && Object.keys(a.data).length > 0);
@@ -1466,7 +1474,7 @@
           '<div class="flex flex-col items-end">' +
           (v.isConnected === true && v.sessionStartTime ? '<span class="visitor-timer text-xs font-mono bg-green-100 text-green-700 px-2 py-1 rounded mb-1" data-start="' + v.sessionStartTime + '">00:00:00</span>' : '') +
           '<div class="flex items-center gap-1">' +
-          '<span class="text-xs px-2 py-1 rounded-full ' + (v.waitingForAdminResponse ? 'waiting-badge text-yellow-800' : 'bg-gray-100 text-gray-600') + '">' + v.page + '</span>' +
+          '<span class="text-xs px-2 py-1 rounded-full ' + (v.waitingForAdminResponse ? 'waiting-badge text-yellow-800' : 'bg-gray-100 text-gray-600') + '">' + shortPage(v.page) + '</span>' +
           (isDisconnected ? '<span class="w-2 h-2 bg-red-500 rounded-full" title="غير متصل"></span>' : '<span class="w-2 h-2 bg-green-500 rounded-full" title="متصل"></span>') +
           '</div>' +
           '</div>' +
@@ -1553,7 +1561,7 @@
       html += '<div class="flex flex-col lg:flex-row justify-between items-start gap-4 w-full">';
       html += '<div class="flex-1 min-w-0">';
       html += '<h2 class="text-2xl font-bold break-words">' + displayName + '</h2>';
-      html += '<p class="text-gray-500">' + visitor.page + '</p>';
+      html += '<p class="text-gray-500">' + shortPage(visitor.page) + '</p>';
       // Get service name and total fees from data dynamically
       let serviceName = null;
       let totalFees = null;
