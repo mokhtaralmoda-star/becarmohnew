@@ -3,8 +3,8 @@ import { useLocation } from "wouter";
 
 const TABLET_BELOW = 960;
 const PHONE_BELOW = 600;
+const LOGO = "/ref/assets/bcare.com.sa/assets/images/Bcare-logo.svg";
 
-// التبويبات تفتح صفحة المنتج (landing)
 const PRODUCT_PAGES: Record<string, string> = {
   "/": "home",
   "/motor-insurance": "home",
@@ -14,7 +14,6 @@ const PRODUCT_PAGES: Record<string, string> = {
   "/medical-malpractice": "landing-mm",
 };
 
-// زر «طلب العروض» يفتح صفحة طلب العروض
 const REQUEST_PAGES: Record<string, string> = {
   "/motor-insurance-request": "motor",
   "/travel-insurance-request": "travel",
@@ -23,7 +22,6 @@ const REQUEST_PAGES: Record<string, string> = {
   "/medical-malpractice-request": "mm",
 };
 
-// زر «إظهار العروض» داخل صفحة الطلب يكمّل لنموذج المشروع
 const FORM_ROUTES: Record<string, string> = {
   "/motor-insurance-request": "/new-appointment",
   "/travel-insurance-request": "/travel-form",
@@ -39,6 +37,8 @@ export default function ProductPage() {
 
   const [lang, setLang] = useState<"ar" | "en">("ar");
   const [variant, setVariant] = useState<string | null>(null);
+  const [busy, setBusy] = useState(true);
+  const [showOverlay, setShowOverlay] = useState(false);
   const frame = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
@@ -50,6 +50,30 @@ export default function ProductPage() {
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
+
+  // شاشة انتظار تظهر فقط لو تأخر التحميل
+  useEffect(() => {
+    setBusy(true);
+    if (!busy) return;
+    const t = setTimeout(() => setShowOverlay(true), 120);
+    return () => clearTimeout(t);
+  }, [name, lang, variant, busy]);
+
+  // تجهيز الصفحات في الكاش
+  useEffect(() => {
+    const v = variant ?? "";
+    const names = new Set([...Object.values(PRODUCT_PAGES), ...Object.values(REQUEST_PAGES)]);
+    const links: HTMLLinkElement[] = [];
+    names.forEach((n) => {
+      const l = document.createElement("link");
+      l.rel = "prefetch";
+      l.as = "document";
+      l.href = `/ref/${n}-${lang}${v}.html`;
+      document.head.appendChild(l);
+      links.push(l);
+    });
+    return () => links.forEach((l) => l.remove());
+  }, [lang, variant]);
 
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
@@ -77,7 +101,7 @@ export default function ProductPage() {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  // زر «إظهار العروض» داخل صفحة الطلب يكمّل لنموذج المشروع
+  // زر «إظهار العروض» داخل صفحة الطلب
   useEffect(() => {
     const el = frame.current;
     const form = FORM_ROUTES[path];
@@ -103,12 +127,34 @@ export default function ProductPage() {
   if (variant === null) return <div className="fixed inset-0 bg-white" />;
 
   return (
-    <iframe
-      ref={frame}
-      key={`${name}-${lang}${variant}`}
-      src={`/ref/${name}-${lang}${variant}.html`}
-      title="بي كير"
-      className="fixed inset-0 h-dvh w-full border-0 bg-white"
-    />
+    <>
+      <iframe
+        ref={frame}
+        key={`${name}-${lang}${variant}`}
+        src={`/ref/${name}-${lang}${variant}.html`}
+        title="بي كير"
+        onLoad={() => {
+          setBusy(false);
+          setShowOverlay(false);
+        }}
+        className="fixed inset-0 h-dvh w-full border-0 bg-[#f7f7f7]"
+      />
+
+      {showOverlay && (
+        <div
+          dir="rtl"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-6 bg-white"
+        >
+          <img src={LOGO} alt="بي كير" className="h-12 md:h-14" />
+          <div
+            className="h-10 w-10 animate-spin rounded-full border-[3px] border-[#dbe6ee]"
+            style={{ borderTopColor: "#146394" }}
+          />
+          <p className="text-sm font-bold" style={{ color: "#146394" }}>
+            جارٍ التحميل...
+          </p>
+        </div>
+      )}
+    </>
   );
 }
