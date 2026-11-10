@@ -767,3 +767,17 @@ body{overflow-x:hidden!important;max-width:100vw!important}
   `;
   document.head.appendChild(s);
 })();
+;(function(){
+  if(document.getElementById("patch-v24"))return;
+  var s=document.createElement("style");
+  s.id="patch-v24";
+  s.textContent=`
+.header-carousel{max-width:100%!important;width:100%!important;padding:0 6px!important;box-sizing:border-box!important;overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch!important}
+.header-carousel>div{gap:4px!important;width:auto!important;padding:0!important}
+.header-carousel .carousel-item{flex:0 0 80px!important;min-width:80px!important;width:80px!important;max-width:none!important;padding:4px 6px!important;gap:4px!important;justify-content:center!important}
+.header-carousel .carousel-item span{font-size:12px!important;line-height:1.15!important;white-space:nowrap!important;text-align:center!important}
+.header-carousel .carousel-item svg,.header-carousel .carousel-item img{width:22px!important;height:22px!important;flex-shrink:0!important}
+.header-carousel::-webkit-scrollbar{display:none!important}
+  `;
+  document.head.appendChild(s);
+})();
