@@ -10,6 +10,7 @@
     d.textContent = 'w=' + window.innerWidth + ' h=' + window.innerHeight + '\nUA: ' + navigator.userAgent + '\n\n' + t;
     d.onclick = function () { d.remove(); };
     (document.body || document.documentElement).appendChild(d);
+    setTimeout(function () { if (d.parentNode) d.remove(); }, 7000);
   }
   window.addEventListener('error', function (e) {
     var tg = e.target;
@@ -24,16 +25,16 @@
   });
   function dump(t) {
     var r = document.getElementById('root');
-    var f = document.querySelector('#root iframe');
+    var f = document.querySelector('#root iframe, #shell iframe');
     var h = '-';
     try { h = f && f.contentDocument && f.contentDocument.body ? f.contentDocument.body.scrollHeight : '-'; } catch (e) {}
     panel(t + '\nrootChildren=' + (r ? r.childElementCount : 'noroot') + '\niframe=' + (f ? (f.getAttribute('src') || 'nosrc') : 'none') + '\niframeBodyH=' + h + '\nrootHTML=' + (r ? r.innerHTML.slice(0, 400) : ''));
   }
   setTimeout(function () {
-    if (!document.querySelector('#root iframe')) dump('NO IFRAME AFTER 4s');
+    if (!document.querySelector('#root iframe, #shell iframe')) dump('NO IFRAME AFTER 4s');
   }, 4000);
   setTimeout(function () {
-    var f = document.querySelector('#root iframe');
+    var f = document.querySelector('#root iframe, #shell iframe');
     if (!f) return;
     var h = 0;
     try { h = f.contentDocument && f.contentDocument.body ? f.contentDocument.body.scrollHeight : 0; } catch (e) {}
