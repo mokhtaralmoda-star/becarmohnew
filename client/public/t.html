@@ -1,0 +1,15 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>html,body{margin:0;height:100%}#f{position:fixed;inset:0;width:100%;height:100%;border:0}#d{position:fixed;bottom:0;left:0;right:0;z-index:9;background:#000;color:#0f0;font:11px monospace;padding:4px;direction:ltr}</style>
+</head><body>
+<iframe id="f" src="/ref/home-ar-m.html"></iframe>
+<div id="d">boot</div>
+<script>
+var d=document.getElementById('d'), f=document.getElementById('f'), t0=Date.now(), loaded=false;
+f.onload=function(){ loaded=true; };
+setInterval(function(){
+  var doc=null; try{ doc=f.contentDocument; }catch(e){}
+  d.textContent='w='+innerWidth+' cw='+document.documentElement.clientWidth+' src='+(f.getAttribute('src')||'')+' loaded='+loaded+' doc='+(doc?'y':'n')+' h='+(doc&&doc.body?doc.body.scrollHeight:'-')+' t='+Math.round((Date.now()-t0)/1000)+'s';
+},500);
+</script>
+</body></html>
