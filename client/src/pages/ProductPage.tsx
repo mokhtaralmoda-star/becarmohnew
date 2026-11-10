@@ -254,8 +254,9 @@ export default function ProductPage() {
       const target = ev.target as HTMLElement | null;
       const btn = target?.closest("button");
       if (!btn) return;
-      const label = (btn.textContent || "").replace(/\s+/g, " ").trim();
-      if (label !== "إظهار العروض" && label !== "Show Offers") return;
+      const isSubmit =
+        btn.matches('button[type="submit"]') || btn.classList.contains("bg-newYellow");
+      if (!isSubmit) return;
 
       const input = el.contentDocument?.querySelector(
         "bcare-presentation-captcha-input input",
@@ -268,6 +269,7 @@ export default function ProductPage() {
       }
 
       ev.preventDefault();
+      ev.stopPropagation();
       setLocation(form);
     };
     const attach = () => el.contentDocument?.addEventListener("click", onClick, true);
