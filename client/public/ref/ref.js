@@ -626,3 +626,10 @@
     }
   })();
 })();
+
+(function () {
+  var s = document.createElement('style');
+  s.textContent = 'bcare-landing-product-nav nav div.pointer-events-none{display:none !important}' +
+    '#exclusive-offers-discounts .pointer-events-none.absolute{display:none !important}';
+  document.head.appendChild(s);
+})();
