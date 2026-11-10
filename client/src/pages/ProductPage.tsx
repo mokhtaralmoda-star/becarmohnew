@@ -30,6 +30,68 @@ const FORM_ROUTES: Record<string, string> = {
   "/medical-malpractice-request": "/malpractice-form",
 };
 
+function drawCaptcha(el: HTMLIFrameElement): string | null {
+  const doc = el.contentDocument;
+  const host = doc?.querySelector("bcare-presentation-captcha-input");
+  const img = host?.querySelector('img[src^="data:image"]') as HTMLImageElement | null;
+  const input = host?.querySelector("input") as HTMLInputElement | null;
+  if (!doc || !host || !img) return null;
+
+  const code = Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join("");
+  const canvas = doc.createElement("canvas");
+  canvas.width = 110;
+  canvas.height = 46;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return null;
+
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, 110, 46);
+  const colors = ["#8b1a1a", "#1a3a8b", "#5a1a8b", "#c26a00", "#111111"];
+  for (let i = 0; i < 4; i++) {
+    ctx.save();
+    ctx.translate(16 + i * 24, 33);
+    ctx.rotate((Math.random() - 0.5) * 0.5);
+    ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+    ctx.font = `${i % 2 ? "italic " : "bold "}26px serif`;
+    ctx.fillText(code[i], 0, 0);
+    ctx.restore();
+  }
+  for (let i = 0; i < 6; i++) {
+    ctx.strokeStyle = "rgba(20,99,148,0.35)";
+    ctx.beginPath();
+    ctx.moveTo(Math.random() * 110, Math.random() * 46);
+    ctx.lineTo(Math.random() * 110, Math.random() * 46);
+    ctx.stroke();
+  }
+
+  img.src = canvas.toDataURL();
+  if (input) {
+    input.value = "";
+    input.style.borderColor = "";
+  }
+  const err = host.querySelector(".ref-captcha-err") as HTMLElement | null;
+  if (err) err.hidden = true;
+  return code;
+}
+
+function showCaptchaError(el: HTMLIFrameElement) {
+  const doc = el.contentDocument;
+  const host = doc?.querySelector("bcare-presentation-captcha-input") as HTMLElement | null;
+  if (!doc || !host) return;
+  const input = host.querySelector("input") as HTMLInputElement | null;
+  if (input) input.style.borderColor = "#c82333";
+  let err = host.querySelector(".ref-captcha-err") as HTMLElement | null;
+  if (!err) {
+    err = doc.createElement("p");
+    err.className = "ref-captcha-err";
+    err.textContent = "رمز التحقق غير صحيح";
+    err.style.cssText =
+      "background:#fde8e8;color:#c82333;font-size:12px;line-height:1.6;padding:4px 8px;margin:4px 0 0;text-align:start;border-radius:4px";
+    host.appendChild(err);
+  }
+  err.hidden = false;
+}
+
 export default function ProductPage() {
   const [location, setLocation] = useLocation();
   const path = location.split("?")[0];
@@ -40,6 +102,7 @@ export default function ProductPage() {
   const [busy, setBusy] = useState(true);
   const [showOverlay, setShowOverlay] = useState(false);
   const frame = useRef<HTMLIFrameElement>(null);
+  const code = useRef("");
 
   useEffect(() => {
     const update = () => {
@@ -51,13 +114,11 @@ export default function ProductPage() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  // كل تنقّل يبدأ من جديد
   useEffect(() => {
     setBusy(true);
     setShowOverlay(false);
   }, [name, lang, variant]);
 
-  // الشاشة تظهر لو تأخر التحميل، وتختفي أول ما يخلص
   useEffect(() => {
     if (!busy) {
       setShowOverlay(false);
@@ -74,7 +135,6 @@ export default function ProductPage() {
     };
   }, [busy]);
 
-  // تجهيز الصفحات في الكاش
   useEffect(() => {
     const v = variant ?? "";
     const names = new Set([...Object.values(PRODUCT_PAGES), ...Object.values(REQUEST_PAGES)]);
@@ -89,6 +149,38 @@ export default function ProductPage() {
     });
     return () => links.forEach((l) => l.remove());
   }, [lang, variant]);
+
+  // كابتشا جديدة لكل تحميل ولكل نقرة على التحديث
+  useEffect(() => {
+    const el = frame.current;
+    if (!el) return;
+    const setup = () => {
+      const doc = el.contentDocument;
+      const host = doc?.querySelector("bcare-presentation-captcha-input");
+      if (!doc || !host) return;
+      code.current = drawCaptcha(el) ?? "";
+      const input = host.querySelector("input") as HTMLInputElement | null;
+      input?.addEventListener("input", () => {
+        const err = host.querySelector(".ref-captcha-err") as HTMLElement | null;
+        if (err) err.hidden = true;
+        input.style.borderColor = "";
+      });
+      host.addEventListener(
+        "click",
+        (ev) => {
+          if (!(ev.target as HTMLElement).closest("mat-icon")) return;
+          ev.preventDefault();
+          setTimeout(() => {
+            code.current = drawCaptcha(el) ?? "";
+          }, 0);
+        },
+        true,
+      );
+    };
+    setup();
+    el.addEventListener("load", setup);
+    return () => el.removeEventListener("load", setup);
+  }, [name, lang, variant]);
 
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
@@ -116,7 +208,7 @@ export default function ProductPage() {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  // زر «إظهار العروض» داخل صفحة الطلب
+  // زر «إظهار العروض» مع التحقق من الكابتشا
   useEffect(() => {
     const el = frame.current;
     const form = FORM_ROUTES[path];
@@ -127,6 +219,17 @@ export default function ProductPage() {
       if (!btn) return;
       const label = (btn.textContent || "").replace(/\s+/g, " ").trim();
       if (label !== "إظهار العروض" && label !== "Show Offers") return;
+
+      const input = el.contentDocument?.querySelector(
+        'bcare-presentation-captcha-input input',
+      ) as HTMLInputElement | null;
+      if (input && code.current && input.value.trim() !== code.current) {
+        ev.preventDefault();
+        ev.stopPropagation();
+        showCaptchaError(el);
+        return;
+      }
+
       ev.preventDefault();
       setLocation(form);
     };
