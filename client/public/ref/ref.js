@@ -641,3 +641,21 @@
     'bcare-landing-product-nav nav .header-carousel{overflow:visible !important}';
   document.head.appendChild(s);
 })();
+
+(function () {
+  function kill() {
+    var nav = document.querySelector('bcare-landing-product-nav nav');
+    if (!nav) return;
+    var ds = nav.querySelectorAll('div');
+    for (var i = 0; i < ds.length; i++) {
+      var d = ds[i], c = d.className || '';
+      if (c.indexOf('pointer-events-none') > -1 && c.indexOf('absolute') > -1) {
+        d.style.setProperty('display', 'none', 'important');
+      }
+    }
+  }
+  kill();
+  setTimeout(kill, 200);
+  setTimeout(kill, 800);
+  setTimeout(kill, 2000);
+})();
