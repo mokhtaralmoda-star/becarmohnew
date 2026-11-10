@@ -95,6 +95,19 @@
     </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+  <div id="dbg" style="position:fixed;bottom:0;left:0;right:0;z-index:2147483647;background:#000;color:#0f0;font:11px monospace;padding:4px;direction:ltr;white-space:pre-wrap;word-break:break-all"></div>
+<script>
+(function () {
+  var d = document.getElementById('dbg');
+  setInterval(function () {
+    var r = document.getElementById('root');
+    var f = document.querySelector('#root iframe');
+    var h = '-';
+    try { h = f && f.contentDocument && f.contentDocument.body ? f.contentDocument.body.scrollHeight : '-'; } catch (e) { h = 'X'; }
+    d.textContent = 'w=' + innerWidth + ' rootKids=' + (r ? r.childElementCount : 'noRoot') + ' iframe=' + (f ? (f.getAttribute('src') || 'nosrc') : 'none') + ' h=' + h + ' html=' + (r ? r.innerHTML.slice(0, 100) : '');
+  }, 500);
+})();
+</script>
   </body>
 
 </html>
