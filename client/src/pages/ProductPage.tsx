@@ -138,7 +138,15 @@ export default function ProductPage() {
   const name = PRODUCT_PAGES[path] ?? REQUEST_PAGES[path] ?? "home";
 
   const [lang, setLang] = useState<"ar" | "en">("ar");
-  const [variant, setVariant] = useState<string | null>(null);
+  const [variant, setVariant] = useState<string | null>(() =>
+    typeof window === "undefined"
+      ? null
+      : window.innerWidth < PHONE_BELOW
+        ? "-m"
+        : window.innerWidth < TABLET_BELOW
+          ? "-t"
+          : "",
+  );
   const [busy, setBusy] = useState(true);
   const [showOverlay, setShowOverlay] = useState(false);
   const frame = useRef<HTMLIFrameElement>(null);

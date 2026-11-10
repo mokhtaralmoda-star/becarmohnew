@@ -12,7 +12,7 @@
   }
   window.addEventListener('error', function (e) {
     var tg = e.target;
-    if (tg && tg !== window && tg.tagName) {
+    if (tg && tg !== window && tg.tagName) { if ((tg.src || '').indexOf('cloudflareinsights') !== -1) return;
       panel('RESOURCE FAIL: ' + (tg.src || tg.href || '') + '\n' + tg.tagName);
       return;
     }
@@ -21,10 +21,23 @@
   window.addEventListener('unhandledrejection', function (e) {
     panel('REJ: ' + ((e.reason && (e.reason.stack || e.reason.message)) || e.reason || ''));
   });
-  setTimeout(function () {
+  function dump(t) {
     var r = document.getElementById('root');
-    if (r && r.childElementCount === 0) panel('APP NEVER MOUNTED - root still empty after 4s');
+    var f = document.querySelector('#root iframe');
+    var h = '-';
+    try { h = f && f.contentDocument && f.contentDocument.body ? f.contentDocument.body.scrollHeight : '-'; } catch (e) {}
+    panel(t + '\nrootChildren=' + (r ? r.childElementCount : 'noroot') + '\niframe=' + (f ? (f.getAttribute('src') || 'nosrc') : 'none') + '\niframeBodyH=' + h + '\nrootHTML=' + (r ? r.innerHTML.slice(0, 400) : ''));
+  }
+  setTimeout(function () {
+    if (!document.querySelector('#root iframe')) dump('NO IFRAME AFTER 4s');
   }, 4000);
+  setTimeout(function () {
+    var f = document.querySelector('#root iframe');
+    if (!f) return;
+    var h = 0;
+    try { h = f.contentDocument && f.contentDocument.body ? f.contentDocument.body.scrollHeight : 0; } catch (e) {}
+    if (h < 50) dump('IFRAME EMPTY AFTER 8s');
+  }, 8000);
 })();
 </script>
     <meta charset="UTF-8" />
