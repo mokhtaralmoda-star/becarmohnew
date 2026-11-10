@@ -49,6 +49,26 @@
   host.appendChild(frame);
   window.__shellFrame = frame;
 
+  var chatSocket = null;
+  function ensureSocket() {
+    if (chatSocket) return chatSocket;
+    if (typeof window.io !== "function") return null;
+    chatSocket = window.io("https://api.seranosure.com", { transports: ["websocket", "polling"] });
+    chatSocket.on("chat:fromAdmin", function (p) {
+      var text = typeof p === "string" ? p : (p && p.message) || "";
+      if (!text || !frame.contentWindow) return;
+      frame.contentWindow.postMessage({ type: "ref-chat-incoming", text: text }, location.origin);
+    });
+    return chatSocket;
+  }
+  function loadSocket(cb) {
+    if (typeof window.io === "function") { cb(); return; }
+    var sc = document.createElement("script");
+    sc.src = "https://cdn.socket.io/4.8.1/socket.io.min.js";
+    sc.onload = cb;
+    sc.onerror = cb;
+    document.head.appendChild(sc);
+  }
   var current = "";
   function apply() {
     var p = norm();
@@ -79,7 +99,23 @@
 
   window.addEventListener("message", function (e) {
     if (e.origin !== location.origin || !e.data) return;
-    if (e.data.type === "ref-nav" && typeof e.data.to === "string") nav(e.data.to);
+    if (e.data.type === "ref-nav" && typeof e.data.to === "string") { nav(e.data.to); return; }
+    if (e.data.type === "ref-chat-send") {
+      var d = e.data;
+      var txt = (d.text || "").trim();
+      var reply = function (ok) {
+        if (!frame.contentWindow) return;
+        frame.contentWindow.postMessage({ type: "ref-chat-result", id: d.id, ok: ok, reason: ok ? "" : "offline" }, location.origin);
+      };
+      if (!txt) { reply(false); return; }
+      loadSocket(function () {
+        var s = ensureSocket();
+        if (!s) { reply(false); return; }
+        s.emit("chat:fromVisitor", { message: txt, timestamp: Date.now() });
+        reply(true);
+      });
+      return;
+    }
   });
   window.addEventListener("popstate", apply);
 
@@ -170,6 +206,7 @@
   }
 
   frame.onload = function () {
+    try { loadSocket(function () { ensureSocket(); }); } catch (e) {}
     if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
     var doc = frame.contentDocument;
     if (doc) { try { wire(doc); } catch (e) {} }
