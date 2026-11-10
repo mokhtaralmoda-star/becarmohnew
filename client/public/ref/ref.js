@@ -32,7 +32,7 @@
   // تنبيه بصري عند وصول رسالة من الإدارة والزائر لم يفتح الدردشة
   var alertStyle = document.createElement('style');
   alertStyle.textContent = '.ref-chat-alert{position:fixed;transform:translateX(-50%);z-index:2147483000;background:#dc2626;color:#fff;font-size:12px;font-weight:700;padding:5px 10px;border-radius:12px;white-space:nowrap;pointer-events:none;animation:ref-blink 2s steps(1,end) infinite;box-shadow:0 2px 8px rgba(0,0,0,.25)}' +
-    '.bubble-frame.ref-alert{background:#dc2626 !important;border-color:#dc2626 !important;animation:ref-pulse 1s ease-in-out infinite}' +
+    '.bubble-frame.ref-alert,.bubble-frame.bg-yellowtheme.ref-alert{background:#dc2626 !important;background-color:#dc2626 !important;border-color:#dc2626 !important;animation:ref-pulse 1s ease-in-out infinite}' +
     '.bubble-frame.ref-alert svg,.bubble-frame.ref-alert img{filter:brightness(0) invert(1)}' +
     '@keyframes ref-blink{0%,49%{opacity:1}50%,100%{opacity:0}}' +
     '@keyframes ref-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}';
