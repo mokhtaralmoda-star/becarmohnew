@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
+import { socket } from "@/lib/store";
 
 const TABLET_BELOW = 960;
 const PHONE_BELOW = 600;
@@ -224,7 +225,23 @@ export default function ProductPage() {
     const onMessage = (e: MessageEvent) => {
       if (e.origin !== window.location.origin) return;
       if (e.source !== frame.current?.contentWindow) return;
-      const data = e.data as { type?: string; to?: string; lang?: string };
+
+      const data = e.data as { type?: string; to?: string; lang?: string; id?: string; text?: string };
+      const reply = (id: string, ok: boolean, reason?: string) => {
+        frame.current?.contentWindow?.postMessage(
+          { type: "ref-chat-result", id, ok, reason },
+          window.location.origin,
+        );
+      };
+      if (data?.type === "ref-chat-send") {
+        const id = data.id ?? "";
+        const text = (data.text ?? "").trim();
+        if (!text) return reply(id, false);
+        if (!socket.value.connected) return reply(id, false, "offline");
+        socket.value.emit("chat:fromVisitor", { message: text, timestamp: Date.now() });
+        reply(id, true);
+        return;
+      }
       if (data?.type !== "ref-nav" || typeof data.to !== "string") return;
       if (data.lang === "en" || data.lang === "ar") setLang(data.lang);
       const to = data.to.split("?")[0];
@@ -239,6 +256,19 @@ export default function ProductPage() {
     };
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
+  useEffect(() => {
+    const s = socket.value;
+    const onAdmin = (p: { message?: string } | string) => {
+      const text = typeof p === "string" ? p : p?.message ?? "";
+      if (!text) return;
+      frame.current?.contentWindow?.postMessage(
+        { type: "ref-chat-incoming", text },
+        window.location.origin,
+      );
+    };
+    s.on("chat:fromAdmin", onAdmin);
+    return () => { s.off("chat:fromAdmin", onAdmin); };
+  }, []);
   }, [setLocation]);
 
   useEffect(() => {
