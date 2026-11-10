@@ -55,6 +55,8 @@ export default defineConfig({
   build: {
     outDir: "../dist", // Output to dist folder in project root
     emptyOutDir: true,
+    target: "safari11",
+    cssTarget: "safari11",
     minify: "terser",
     terserOptions: {
       compress: {

@@ -333,7 +333,7 @@ export default function ProductPage() {
         src={`/ref/${name}-${lang}${variant}.html`}
         title="بي كير"
         onLoad={() => setBusy(false)}
-        className="fixed inset-0 h-dvh w-full border-0 bg-[#f7f7f7]"
+        className="fixed inset-0 w-full border-0 bg-[#f7f7f7]" style={{ height: "100vh" }}
       />
 
       {showOverlay && (
