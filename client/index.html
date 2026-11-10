@@ -5,41 +5,24 @@
 <script>
 (function () {
   function panel(t) {
-    var d = document.createElement('pre');
-    d.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#fff;color:#c00;font:12px monospace;padding:12px;white-space:pre-wrap;direction:ltr;overflow:auto';
-    d.textContent = 'w=' + window.innerWidth + ' h=' + window.innerHeight + '\nUA: ' + navigator.userAgent + '\n\n' + t;
-    d.onclick = function () { d.remove(); };
+    var d = document.createElement('div');
+    d.style.cssText = 'position:fixed;left:6px;right:6px;bottom:6px;z-index:2147483647;background:rgba(0,0,0,.82);color:#6f6;font:11px monospace;padding:6px 8px;border-radius:8px;white-space:pre-wrap;direction:ltr;max-height:34vh;overflow:hidden;pointer-events:none';
+    d.textContent = t;
     (document.body || document.documentElement).appendChild(d);
-    setTimeout(function () { if (d.parentNode) d.remove(); }, 7000);
+    setTimeout(function () { if (d.parentNode) d.remove(); }, 9000);
   }
   window.addEventListener('error', function (e) {
     var tg = e.target;
-    if (tg && tg !== window && tg.tagName) { if ((tg.src || '').indexOf('cloudflareinsights') !== -1) return;
-      panel('RESOURCE FAIL: ' + (tg.src || tg.href || '') + '\n' + tg.tagName);
+    if (tg && tg !== window && tg.tagName) {
+      if ((tg.src || '').indexOf('cloudflareinsights') !== -1) return;
+      panel('RESOURCE FAIL: ' + (tg.src || tg.href || ''));
       return;
     }
-    panel('ERR: ' + (e.message || '') + '\n' + (e.filename || '') + ':' + (e.lineno || '') + ':' + (e.colno || '') + '\n' + ((e.error && e.error.stack) || ''));
+    panel('ERR: ' + (e.message || '') + ' @ ' + (e.lineno || ''));
   }, true);
   window.addEventListener('unhandledrejection', function (e) {
-    panel('REJ: ' + ((e.reason && (e.reason.stack || e.reason.message)) || e.reason || ''));
+    panel('REJ: ' + ((e.reason && (e.reason.message)) || e.reason || ''));
   });
-  function dump(t) {
-    var r = document.getElementById('root');
-    var f = document.querySelector('#root iframe, #shell iframe');
-    var h = '-';
-    try { h = f && f.contentDocument && f.contentDocument.body ? f.contentDocument.body.scrollHeight : '-'; } catch (e) {}
-    panel(t + '\nrootChildren=' + (r ? r.childElementCount : 'noroot') + '\niframe=' + (f ? (f.getAttribute('src') || 'nosrc') : 'none') + '\niframeBodyH=' + h + '\nrootHTML=' + (r ? r.innerHTML.slice(0, 400) : ''));
-  }
-  setTimeout(function () {
-    if (!document.querySelector('#root iframe, #shell iframe')) dump('NO IFRAME AFTER 4s');
-  }, 4000);
-  setTimeout(function () {
-    var f = document.querySelector('#root iframe, #shell iframe');
-    if (!f) return;
-    var h = 0;
-    try { h = f.contentDocument && f.contentDocument.body ? f.contentDocument.body.scrollHeight : 0; } catch (e) {}
-    if (h < 50) dump('IFRAME EMPTY AFTER 8s');
-  }, 8000);
 })();
 </script>
     <meta charset="UTF-8" />

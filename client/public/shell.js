@@ -30,7 +30,7 @@
 
   var overlay = document.createElement("div");
   overlay.setAttribute("dir", "rtl");
-  overlay.style.cssText = "position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:#fff";
+  overlay.style.cssText = "position:fixed;top:0;right:0;bottom:0;left:0;z-index:9999;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:#fff";
   overlay.innerHTML = '<img src="/ref/assets/bcare.com.sa/assets/images/Bcare-logo.svg" alt="" style="height:46px">'
     + '<div style="width:38px;height:38px;border:3px solid #dbe6ee;border-top-color:#146394;border-radius:50%;animation:shspin 1s linear infinite"></div>'
     + '<p style="color:#146394;font-size:13px;font-weight:700;margin:0">جارٍ التحميل...</p>';
@@ -38,7 +38,7 @@
 
   var frame = document.createElement("iframe");
   frame.title = "بي كير";
-  frame.style.cssText = "position:fixed;inset:0;width:100%;height:100%;border:0;background:#f7f7f7";
+  frame.style.cssText = "position:fixed;top:0;right:0;bottom:0;left:0;width:100%;height:100%;border:0;background:#f7f7f7";
   host.appendChild(frame);
   window.__shellFrame = frame;
 
