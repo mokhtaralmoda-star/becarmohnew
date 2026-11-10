@@ -50,6 +50,7 @@
   function showChatAlert() {
     var btn = document.querySelector('bcare-bubbles .bubble-frame') || document.querySelector('.bubble-frame');
     console.log('[chat-alert] btn=', !!btn, 'open=', !!(chatBox && !chatBox.hidden));
+    if (window.parent !== window) window.parent.postMessage({ type: 'ref-chat-ack', found: !!btn }, location.origin);
     if (!btn) return;
     btn.classList.add('ref-alert');
     btn.style.setProperty('background-color', '#dc2626', 'important');

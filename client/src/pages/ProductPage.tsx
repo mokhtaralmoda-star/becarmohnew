@@ -233,6 +233,10 @@ export default function ProductPage() {
           window.location.origin,
         );
       };
+      if (data?.type === "ref-chat-ack") {
+        console.log("[chat] iframe ack, button found:", (data as unknown as { found?: boolean }).found);
+        return;
+      }
       if (data?.type === "ref-chat-send") {
         const id = data.id ?? "";
         const text = (data.text ?? "").trim();
