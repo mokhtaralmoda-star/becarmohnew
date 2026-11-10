@@ -381,19 +381,6 @@
       if (box) box.classList.toggle('mdc-checkbox--selected', input.checked);
     }
   });
-  // التبويب السادس "أفراد" ناقص من النسخة الثابتة؛ نعيد بناءه من آخر تبويب
-  (function () {
-    var first = document.querySelector('bcare-landing-product-nav a.carousel-item');
-    if (!first) return;
-    var anchors = Array.prototype.slice.call(first.parentElement.querySelectorAll('a.carousel-item'));
-    if (!anchors.length) return;
-    if (anchors.some(function (a) { return /أفراد|Individuals/i.test(a.textContent); })) return;
-    var last = anchors[anchors.length - 1];
-    var clone = last.cloneNode(true);
-    var span = clone.querySelector('span:last-child');
-    if (span) span.textContent = lang === 'ar' ? ' أفراد ' : ' Individuals ';
-    last.parentElement.appendChild(clone);
-  })();
   function currentRoute() {
     var map = { 'landing-mm': '/medical-malpractice', 'landing-travel': '/travel-insurance',
       'landing-helpers': '/domestic-workers', 'landing-medical': '/medical-insurance',
@@ -675,4 +662,10 @@
   kill();
   setTimeout(kill, 300);
   setTimeout(kill, 1500);
+})();
+
+(function () {
+  var s = document.createElement('style');
+  s.textContent = 'bcare-landing-product-nav a.carousel-item{flex:0 0 auto !important;min-width:0 !important}';
+  document.head.appendChild(s);
 })();
