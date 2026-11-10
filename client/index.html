@@ -3,18 +3,29 @@
 
   <head>
 <script>
-window.addEventListener('error', function (e) {
-  var d = document.createElement('pre');
-  d.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#fff;color:#c00;font:13px monospace;padding:12px;white-space:pre-wrap;direction:ltr;overflow:auto';
-  d.textContent = 'ERR: ' + (e.message || '') + '\n' + (e.filename || '') + ':' + (e.lineno || '') + ':' + (e.colno || '') + '\n' + ((e.error && e.error.stack) || '');
-  document.body.appendChild(d);
-});
-window.addEventListener('unhandledrejection', function (e) {
-  var d = document.createElement('pre');
-  d.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#fff;color:#c00;font:13px monospace;padding:12px;white-space:pre-wrap;direction:ltr;overflow:auto';
-  d.textContent = 'REJ: ' + ((e.reason && (e.reason.stack || e.reason.message)) || e.reason || '');
-  document.body.appendChild(d);
-});
+(function () {
+  function panel(t) {
+    var d = document.createElement('pre');
+    d.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#fff;color:#c00;font:12px monospace;padding:12px;white-space:pre-wrap;direction:ltr;overflow:auto';
+    d.textContent = 'w=' + window.innerWidth + ' h=' + window.innerHeight + '\nUA: ' + navigator.userAgent + '\n\n' + t;
+    (document.body || document.documentElement).appendChild(d);
+  }
+  window.addEventListener('error', function (e) {
+    var tg = e.target;
+    if (tg && tg !== window && tg.tagName) {
+      panel('RESOURCE FAIL: ' + (tg.src || tg.href || '') + '\n' + tg.tagName);
+      return;
+    }
+    panel('ERR: ' + (e.message || '') + '\n' + (e.filename || '') + ':' + (e.lineno || '') + ':' + (e.colno || '') + '\n' + ((e.error && e.error.stack) || ''));
+  }, true);
+  window.addEventListener('unhandledrejection', function (e) {
+    panel('REJ: ' + ((e.reason && (e.reason.stack || e.reason.message)) || e.reason || ''));
+  });
+  setTimeout(function () {
+    var r = document.getElementById('root');
+    if (r && r.childElementCount === 0) panel('APP NEVER MOUNTED - root still empty after 4s');
+  }, 4000);
+})();
 </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
