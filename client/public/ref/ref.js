@@ -452,14 +452,14 @@
     var field = inp.closest('mat-form-field') || inp.parentElement;
     var picker = document.createElement('input');
     picker.type = 'date'; picker.tabIndex = -1;
-    picker.style.cssText = 'position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;';
+    picker.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;z-index:3;border:0;padding:0;margin:0;-webkit-appearance:none;appearance:none;background:transparent;';
     picker.min = new Date().toISOString().slice(0, 10);
     field.style.position = field.style.position || 'relative';
     field.appendChild(picker);
     picker.addEventListener('change', function () {
       if (!picker.value) return; var p = picker.value.split('-'); inp.value = p[2] + '/' + p[1] + '/' + p[0];
     });
-    field.addEventListener('click', function () { try { picker.showPicker(); } catch (e) { picker.focus(); } });
+    field.addEventListener('click', function (ev) { if (ev.target === picker) return; try { picker.showPicker(); } catch (e) { picker.focus(); } });
   });
   // captcha refresh: redraw four coloured digits locally
   function drawCaptcha(img) {
