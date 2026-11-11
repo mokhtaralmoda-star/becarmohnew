@@ -273,7 +273,7 @@ export default function MedicalForm() {
             {/* Popup Header */}
             <div className="flex items-center justify-between p-4 border-b" style={{ backgroundColor: '#1a5276' }}>
               <h3 className="text-white font-bold text-base md:text-lg">بيانات الموظفين ({employees.length}/20)</h3>
-              <button onClick={validateAndClosePopup} className="text-white hover:text-gray-200 text-2xl font-bold leading-none">&times;</button>
+              <button type="button" onClick={() => setShowEmployeePopup(false)} className="text-white hover:text-gray-200 text-2xl font-bold leading-none px-2">&times;</button>
             </div>
 
             {/* Popup Body - Scrollable */}
@@ -310,7 +310,10 @@ export default function MedicalForm() {
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold mb-1" style={{ color: '#1a5276' }}>تاريخ الميلاد <span className="text-red-500">*</span></label>
-                      <input type="date" value={emp.birthDate} onChange={e => updateEmployee(index, 'birthDate', e.target.value)} className={`w-full p-2 border rounded-lg text-sm ${employeeErrors[`emp_${index}_birthDate`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} />
+                      <div className="relative min-w-0">
+                        <input type="text" value={emp.birthDate ? emp.birthDate.split('-').join('/') : ''} readOnly placeholder="يوم/شهر/سنة" dir="ltr" style={{ textAlign: 'right' }} className={`w-full p-2 border rounded-lg text-sm ${employeeErrors[`emp_${index}_birthDate`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
+                        <input type="date" value={emp.birthDate} onChange={e => updateEmployee(index, 'birthDate', e.target.value)} className="absolute inset-0 w-full h-full opacity-0" />
+                      </div>
                       {employeeErrors[`emp_${index}_birthDate`] && <p className="text-red-500 text-[10px] mt-0.5">{employeeErrors[`emp_${index}_birthDate`]}</p>}
                     </div>
                   </div>
