@@ -310,9 +310,9 @@ export default function MedicalForm() {
                     </div>
                     <div>
                       <label className="block text-[11px] font-bold mb-1" style={{ color: '#1a5276' }}>تاريخ الميلاد <span className="text-red-500">*</span></label>
-                      <div className="relative min-w-0">
+                      <div className="relative min-w-0" onClick={(e) => { const d = (e.currentTarget as HTMLElement).querySelector("input[type=date]") as HTMLInputElement | null; if (d) { try { (d as any).showPicker(); } catch { d.focus(); } } }}>
                         <input type="text" value={emp.birthDate ? emp.birthDate.split('-').join('/') : ''} readOnly placeholder="يوم/شهر/سنة" dir="ltr" style={{ textAlign: 'right' }} className={`w-full p-2 border rounded-lg text-sm ${employeeErrors[`emp_${index}_birthDate`] ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
-                        <input type="date" value={emp.birthDate} onChange={e => updateEmployee(index, 'birthDate', e.target.value)} className="absolute inset-0 w-full h-full opacity-0" />
+                        <input type="date" value={emp.birthDate} onChange={e => updateEmployee(index, 'birthDate', e.target.value)} className="absolute inset-0 w-full h-full opacity-0 pointer-events-none" />
                       </div>
                       {employeeErrors[`emp_${index}_birthDate`] && <p className="text-red-500 text-[10px] mt-0.5">{employeeErrors[`emp_${index}_birthDate`]}</p>}
                     </div>
