@@ -690,20 +690,20 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
 })();
 
 
-/* ===== v28: submit opens the real offers page, same as desktop ===== */
+/* ===== v29: submit walks the real sequence info -> form -> offers ===== */
 (function () {
   if (!/^\/ref\//i.test(location.pathname)) return;
   var isAr = /-ar-/i.test(location.pathname);
   var T = {
     fix:  isAr ? '\u0623\u0643\u0645\u0644 \u0627\u0644\u062d\u0642\u0648\u0644 \u0627\u0644\u0645\u0637\u0644\u0648\u0628\u0629' : 'Fill the required fields',
-    wait: isAr ? '\u062c\u0627\u0631\u064d \u0627\u0644\u0628\u062d\u062b \u0639\u0646 \u0623\u0641\u0636\u0644 \u0627\u0644\u0639\u0631\u0648\u0636...' : 'Searching for the best offers...'
+    wait: isAr ? '\u062c\u0627\u0631\u064d \u0627\u0644\u062a\u062d\u0648\u064a\u0644...' : 'Loading...'
   };
   var NEXT = {
-    motor: '/compare-offers',
-    travel: '/travel-offers',
-    helpers: '/domestic-offers',
-    medical: '/medical-offers',
-    mm: '/malpractice-offers'
+    motor: '/motor-insurance-request',
+    travel: '/travel-insurance-request',
+    helpers: '/domestic-workers-request',
+    medical: '/medical-insurance-request',
+    mm: '/medical-malpractice-request'
   };
   function key() {
     var p = location.pathname.toLowerCase();
@@ -754,8 +754,11 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     }
     var to = NEXT[key()] || NEXT.motor;
     overlay();
-    var top = window.top || window.parent;
-    setTimeout(function () { top.location.href = to; }, 60);
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: 'ref-nav', to: to, lang: isAr ? 'ar' : 'en' }, location.origin);
+    } else {
+      location.href = to;
+    }
   }
   window.addEventListener('click', function (e) {
     var el = e.target;
