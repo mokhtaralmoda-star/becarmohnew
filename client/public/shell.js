@@ -14,11 +14,6 @@
     "/domestic-workers-request": "helpers",
     "/medical-insurance-request": "medical",
     "/medical-malpractice-request": "mm",
-    "/new-appointment": "motor",
-    "/travel-form": "travel",
-    "/domestic-form": "helpers",
-    "/medical-form": "medical",
-    "/malpractice-form": "mm"
   };
   var REQ = { "/motor-insurance-request": 1, "/travel-insurance-request": 1, "/domestic-workers-request": 1, "/medical-insurance-request": 1, "/medical-malpractice-request": 1 };
   var FORM = { "/motor-insurance-request": "/new-appointment", "/travel-insurance-request": "/travel-form", "/domestic-workers-request": "/domestic-form", "/medical-insurance-request": "/medical-form", "/medical-malpractice-request": "/malpractice-form" };
@@ -78,7 +73,7 @@
     var p = norm();
     if (!MAP[p]) { host.style.display = "none"; return; }
     host.style.display = "";
-    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html?b=29&r=" + encodeURIComponent(p);
+    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html?b=30&r=" + encodeURIComponent(p);
     if (src !== current) { current = src; frame.src = src; }
   }
 
@@ -95,8 +90,9 @@
     to = String(to).split("?")[0];
     var here = norm();
     if (OFFERS[here]) { location.href = OFFERS[here]; return; }
+    if (REQ[to] && FORM[here]) { location.href = FORM[here]; return; }
     if (to === "/motor-insurance" || to === "/motor-insurance-request") {
-      if (here === "/motor-insurance-request") { go("/new-appointment", nextLang); return; }
+      if (here === "/motor-insurance-request") { location.href = "/new-appointment"; return; }
       go("/motor-insurance-request", nextLang); return;
     }
     if (REQ[to]) { go(to, nextLang); return; }
