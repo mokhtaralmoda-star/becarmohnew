@@ -780,3 +780,47 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     run(f);
   }, true);
 })();
+/* ===== v32: month/year fields become real native selects ===== */
+(function () {
+  var M = ['\u064a\u0646\u0627\u064a\u0631', '\u0641\u0628\u0631\u0627\u064a\u0631', '\u0645\u0627\u0631\u0633',
+    '\u0623\u0628\u0631\u064a\u0644', '\u0645\u0627\u064a\u0648', '\u064a\u0648\u0646\u064a\u0648',
+    '\u064a\u0648\u0644\u064a\u0648', '\u0623\u063a\u0633\u0637\u0633', '\u0633\u0628\u062a\u0645\u0628\u0631',
+    '\u0623\u0643\u062a\u0648\u0628\u0631', '\u0646\u0648\u0641\u0645\u0628\u0631', '\u062f\u064a\u0633\u0645\u0628\u0631'];
+  var PH_M = '\u0634\u0647\u0631 \u0627\u0644\u0645\u064a\u0644\u0627\u062f';
+  var PH_Y = '\u0633\u0646\u0629 \u0627\u0644\u0645\u064a\u0644\u0627\u062f';
+  document.querySelectorAll('input.mat-mdc-autocomplete-trigger').forEach(function (inp) {
+    if (inp.getAttribute('data-ref-sel')) return;
+    var ph = inp.getAttribute('placeholder') || '';
+    var isMonth = ph.indexOf(PH_M) === 0 || /month/i.test(ph);
+    var isYear = ph.indexOf(PH_Y) === 0 || /year/i.test(ph);
+    if (!isMonth && !isYear) return;
+    inp.setAttribute('data-ref-sel', '1');
+    var sel = document.createElement('select');
+    sel.className = inp.className;
+    sel.style.cssText = 'width:100%;height:100%;background:transparent;border:0;outline:0;font-size:16px;' +
+      'color:#707070;padding:0 10px;appearance:none;-webkit-appearance:none;border-radius:6px;';
+    var first = document.createElement('option');
+    first.value = '';
+    first.textContent = isMonth ? PH_M : PH_Y;
+    sel.appendChild(first);
+    if (isMonth) {
+      M.forEach(function (n, i) {
+        var o = document.createElement('option');
+        o.value = String(i + 1); o.textContent = n; sel.appendChild(o);
+      });
+    } else {
+      var y = new Date().getFullYear();
+      for (var i = y - 18; i >= y - 70; i--) {
+        var o = document.createElement('option');
+        o.value = String(i); o.textContent = String(i); sel.appendChild(o);
+      }
+    }
+    inp.style.display = 'none';
+    sel.addEventListener('change', function () {
+      inp.value = sel.value;
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+      inp.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    inp.parentNode.insertBefore(sel, inp.nextSibling);
+  });
+})();
