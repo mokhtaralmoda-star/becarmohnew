@@ -760,6 +760,7 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     var to = NEXT[key()] || NEXT.motor;
     overlay();
     if (window.parent !== window) {
+      if (window.innerWidth >= 960) { (window.top || window.parent).location.href = form; return; }
       window.parent.postMessage({ type: 'ref-nav', to: to, lang: isAr ? 'ar' : 'en' }, location.origin);
     } else {
       location.href = to;
