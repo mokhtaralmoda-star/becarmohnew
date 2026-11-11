@@ -783,7 +783,8 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
   }, true);
 })();
 
-/* ===== v37: month/year pickers with our own list ===== */
+
+/* ===== v40: month/year as native select overlays ===== */
 (function () {
   var M = ['\u064a\u0646\u0627\u064a\u0631', '\u0641\u0628\u0631\u0627\u064a\u0631', '\u0645\u0627\u0631\u0633',
     '\u0623\u0628\u0631\u064a\u0644', '\u0645\u0627\u064a\u0648', '\u064a\u0648\u0646\u064a\u0648',
@@ -791,64 +792,6 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     '\u0623\u0643\u062a\u0648\u0628\u0631', '\u0646\u0648\u0641\u0645\u0628\u0631', '\u062f\u064a\u0633\u0645\u0628\u0631'];
   var PH_M = '\u0634\u0647\u0631 \u0627\u0644\u0645\u064a\u0644\u0627\u062f';
   var PH_Y = '\u0633\u0646\u0629 \u0627\u0644\u0645\u064a\u0644\u0627\u062f';
-  var list = null, openBox = null;
-
-  function closeList() {
-    if (list && list.parentNode) list.parentNode.removeChild(list);
-    list = null; openBox = null;
-  }
-
-  function open(box, inp, vals) {
-    closeList();
-    list = document.createElement('div');
-    list.setAttribute('data-ref-list', '1');
-    list.style.cssText = 'position:fixed;z-index:2147483000;max-height:230px;overflow:auto;background:#fff;' +
-      'border:1px solid #D9D9D9;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:4px 0;';
-    var r = box.getBoundingClientRect();
-    list.style.left = r.left + 'px';
-    list.style.top = (r.bottom + 4) + 'px';
-    list.style.width = r.width + 'px';
-    vals.forEach(function (v) {
-      var o = document.createElement('div');
-      o.textContent = v[1];
-      o.setAttribute('data-v', v[0]);
-      o.style.cssText = 'padding:10px 12px;font-size:14px;color:#333;cursor:pointer;text-align:right;';
-      o.addEventListener('click', function () {
-        inp.value = v[0];
-        box.firstChild.textContent = v[1];
-        closeList();
-        inp.dispatchEvent(new Event('input', { bubbles: true }));
-        inp.dispatchEvent(new Event('change', { bubbles: true }));
-      });
-      list.appendChild(o);
-    });
-    document.body.appendChild(list);
-    openBox = box;
-  }
-
-  document.addEventListener('pointerdown', function (e) {
-    var t = e.target;
-    if (!t || t.nodeType !== 1 || !t.closest) return;
-    if (t.closest('[data-ref-list]')) return;
-    var box = t.closest('[data-ref-dd]');
-    if (!box) { if (list) closeList(); return; }
-    e.preventDefault();
-    e.stopPropagation();
-    if (openBox === box) { closeList(); return; }
-    var inp = box.getAttribute('data-ref-for') === 'm'
-      ? box.parentNode.querySelector('input[data-ref-mm]')
-      : box.parentNode.querySelector('input[data-ref-yy]');
-    var vals = [];
-    if (box.getAttribute('data-ref-for') === 'm') {
-      for (var i = 1; i <= 12; i++) vals.push([String(i), M[i - 1]]);
-    } else {
-      var y = new Date().getFullYear();
-      for (var j = y - 18; j >= y - 70; j--) vals.push([String(j), String(j)]);
-    }
-    open(box, inp, vals);
-  }, true);
-
-  window.addEventListener('scroll', function () { if (list) closeList(); }, true);
 
   document.querySelectorAll('input.mat-mdc-autocomplete-trigger').forEach(function (inp) {
     if (inp.getAttribute('data-ref-sel')) return;
@@ -857,34 +800,44 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     var isYear = ph.indexOf(PH_Y) === 0 || /year/i.test(ph);
     if (!isMonth && !isYear) return;
     inp.setAttribute('data-ref-sel', '1');
-    inp.setAttribute(isMonth ? 'data-ref-mm' : 'data-ref-yy', '1');
     inp.style.display = 'none';
+
     var box = document.createElement('div');
-    box.setAttribute('data-ref-dd', '1');
-    box.setAttribute('data-ref-for', isMonth ? 'm' : 'y');
     box.style.cssText = 'position:relative;width:100%;height:44px;line-height:42px;background:#fff;' +
       'border:1px solid #D9D9D9;border-radius:6px;padding:0 12px 0 34px;font-size:14px;color:#707070;' +
-      'cursor:pointer;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;';
-    box.appendChild(document.createTextNode(isMonth ? PH_M : PH_Y));
+      'box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;';
+    var label = document.createElement('span');
+    label.textContent = isMonth ? PH_M : PH_Y;
+    box.appendChild(label);
+
+    var sel = document.createElement('select');
+    sel.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;' +
+      'cursor:pointer;border:0;padding:0;margin:0;z-index:2;';
+    var o0 = document.createElement('option');
+    o0.value = ''; o0.textContent = isMonth ? PH_M : PH_Y;
+    sel.appendChild(o0);
+    if (isMonth) {
+      for (var i = 1; i <= 12; i++) {
+        var o = document.createElement('option');
+        o.value = String(i); o.textContent = M[i - 1]; sel.appendChild(o);
+      }
+    } else {
+      var y = new Date().getFullYear();
+      for (var j = y - 18; j >= y - 70; j--) {
+        var o2 = document.createElement('option');
+        o2.value = String(j); o2.textContent = String(j); sel.appendChild(o2);
+      }
+    }
+    sel.addEventListener('change', function () {
+      var v = sel.value;
+      inp.value = v;
+      label.textContent = v
+        ? (isMonth ? M[Number(v) - 1] : v)
+        : (isMonth ? PH_M : PH_Y);
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+      inp.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    box.appendChild(sel);
     inp.parentNode.insertBefore(box, inp.nextSibling);
   });
-})();
-/* ===== v39: on-screen diagnostics for the month/year pickers ===== */
-(function () {
-  var log = document.createElement('div');
-  log.style.cssText = 'position:fixed;bottom:0;right:0;left:0;z-index:2147483647;background:#000;color:#0f0;' +
-    'font:11px monospace;padding:4px;direction:ltr;text-align:left;max-height:120px;overflow:auto;white-space:pre-wrap';
-  document.body.appendChild(log);
-  function p(s) { log.textContent = (log.textContent + '\n' + s).slice(-600); }
-  p('v39 boot ' + location.pathname);
-  var n = document.querySelectorAll('input.mat-mdc-autocomplete-trigger').length;
-  p('inputs=' + n + ' boxes=' + document.querySelectorAll('[data-ref-dd]').length);
-  document.addEventListener('pointerdown', function (e) {
-    var t = e.target;
-    p('pd ' + (t && t.tagName) + ' dd=' + !!(t && t.closest && t.closest('[data-ref-dd]')));
-  }, true);
-  document.addEventListener('click', function (e) {
-    var t = e.target;
-    p('clk ' + (t && t.tagName) + ' dd=' + !!(t && t.closest && t.closest('[data-ref-dd]')));
-  }, true);
 })();
