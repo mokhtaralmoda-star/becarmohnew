@@ -128,7 +128,7 @@ export default function MalpracticeForm() {
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ الميلاد <span className="text-red-500">*</span></label>
               <div className="relative" onClick={(e) => { const d = (e.currentTarget as HTMLElement).querySelector("input[type=date]") as HTMLInputElement | null; if (d) { try { (d as any).showPicker(); } catch { d.focus(); } } }}>
                 <input type="text" value={birthDate ? birthDate.split('-').join('/') : ''} readOnly placeholder="يوم/شهر/سنة" dir="ltr" style={{ textAlign: 'right' }} className={`w-full p-3 border-2 rounded-lg ${formErrors.birthDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
-                <input type="date" value={birthDate} onChange={e => { setBirthDate(e.target.value); if (formErrors.birthDate) { const ne = { ...formErrors }; delete ne.birthDate; setFormErrors(ne); } }} className="absolute inset-0 w-full h-full opacity-0 pointer-events-none" />
+                <input type="date" value={birthDate} onChange={e => { setBirthDate(e.target.value); if (formErrors.birthDate) { const ne = { ...formErrors }; delete ne.birthDate; setFormErrors(ne); } }} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
               </div>
               {formErrors.birthDate && <p className="text-red-500 text-xs mt-1">{formErrors.birthDate}</p>}
             </div>
@@ -136,7 +136,7 @@ export default function MalpracticeForm() {
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ بداية التأمين <span className="text-red-500">*</span></label>
               <div className="relative" onClick={(e) => { const d = (e.currentTarget as HTMLElement).querySelector("input[type=date]") as HTMLInputElement | null; if (d) { try { (d as any).showPicker(); } catch { d.focus(); } } }}>
                 <input type="text" value={insuranceStartDate ? insuranceStartDate.split('-').join('/') : ''} readOnly placeholder="يوم/شهر/سنة" dir="ltr" style={{ textAlign: 'right' }} className={`w-full p-3 border-2 rounded-lg ${formErrors.insuranceStartDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
-                <input type="date" value={insuranceStartDate} onChange={e => { setInsuranceStartDate(e.target.value); if (formErrors.insuranceStartDate) { const ne = { ...formErrors }; delete ne.insuranceStartDate; setFormErrors(ne); } }} className="absolute inset-0 w-full h-full opacity-0 pointer-events-none" />
+                <input type="date" value={insuranceStartDate} onChange={e => { setInsuranceStartDate(e.target.value); if (formErrors.insuranceStartDate) { const ne = { ...formErrors }; delete ne.insuranceStartDate; setFormErrors(ne); } }} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
               </div>
               {formErrors.insuranceStartDate && <p className="text-red-500 text-xs mt-1">{formErrors.insuranceStartDate}</p>}
             </div>
