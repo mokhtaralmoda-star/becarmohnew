@@ -797,8 +797,8 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     inp.setAttribute('data-ref-sel', '1');
     var sel = document.createElement('select');
     sel.className = inp.className;
-    sel.style.cssText = 'width:100%;height:100%;background:transparent;border:0;outline:0;font-size:16px;' +
-      'color:#707070;padding:0 10px;appearance:none;-webkit-appearance:none;border-radius:6px;';
+    sel.style.cssText = 'width:100%;height:44px;background:#fff;border:1px solid #D9D9D9;outline:0;font-size:14px;' +
+      'color:#707070;padding:0 12px 0 34px;appearance:none;-webkit-appearance:none;border-radius:6px;direction:rtl;margin-top:5px;';
     var first = document.createElement('option');
     first.value = '';
     first.textContent = isMonth ? PH_M : PH_Y;
