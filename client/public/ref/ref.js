@@ -688,3 +688,131 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
   s.textContent=".main-container{display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr))!important}.main-container>*{min-width:0!important}";
   document.head.appendChild(s);
 })();
+
+/* ===== v27: render offer results locally on the mobile quote forms ===== */
+(function () {
+  if (!/^\/ref\//i.test(location.pathname)) return;
+  var isAr = /-ar-/i.test(location.pathname);
+  var T = {
+    title: isAr ? '\u0627\u0644\u0639\u0631\u0648\u0636 \u0627\u0644\u0645\u062a\u0627\u062d\u0629' : 'Available offers',
+    off:   isAr ? '\u062e\u0635\u0645' : 'off',
+    cur:   isAr ? '\u0631\u064a\u0627\u0644' : 'SAR',
+    pick:  isAr ? '\u0627\u062e\u062a\u064a\u0627\u0631' : 'Select',
+    back:  isAr ? '\u0631\u062c\u0648\u0639' : 'Back',
+    fix:   isAr ? '\u0623\u0643\u0645\u0644 \u0627\u0644\u062d\u0642\u0648\u0644 \u0627\u0644\u0645\u0637\u0644\u0648\u0628\u0629' : 'Fill the required fields'
+  };
+  var D = {
+    motor: [
+      { n: '\u062a\u0648 \u064a\u0648', p: 412, d: 25 },
+      { n: '\u0645\u0644\u0627\u0630', p: 455, d: 20 },
+      { n: '\u0623\u0633\u064a\u062c', p: 490, d: 15 },
+      { n: '\u0627\u0644\u062f\u0631\u0639 \u0627\u0644\u0639\u0631\u0628\u064a', p: 520, d: 12 },
+      { n: '\u0627\u0644\u0627\u062a\u062d\u0627\u062f', p: 545, d: 10 }
+    ],
+    travel: [
+      { n: '\u062a\u0639\u0627\u0648\u0646\u064a\u0629', p: 118, d: 30 },
+      { n: '\u0628\u0648\u0628\u0627', p: 145, d: 22 },
+      { n: '\u0633\u0644\u0627\u0645\u0629', p: 160, d: 18 },
+      { n: '\u0645\u064a\u062f\u063a\u0644\u0641', p: 175, d: 12 },
+      { n: '\u0623\u0645\u0627\u0646', p: 190, d: 8 }
+    ],
+    helpers: [
+      { n: '\u062a\u0643\u0627\u0641\u0644 \u0627\u0644\u0631\u0627\u062c\u062d\u064a', p: 340, d: 20 },
+      { n: '\u0648\u0644\u0627\u0621', p: 365, d: 15 },
+      { n: '\u0627\u0644\u0645\u062a\u062d\u062f\u0629', p: 395, d: 12 },
+      { n: '\u0633\u0644\u0627\u0645\u0629', p: 420, d: 10 }
+    ],
+    medical: [
+      { n: '\u0628\u0648\u0628\u0627', p: 980, d: 25 },
+      { n: '\u062a\u0639\u0627\u0648\u0646\u064a\u0629', p: 1120, d: 20 },
+      { n: '\u0645\u064a\u062f\u063a\u0644\u0641', p: 1250, d: 15 },
+      { n: '\u0633\u0627\u064a\u0643\u0648', p: 1340, d: 12 },
+      { n: '\u0627\u0644\u062e\u0644\u064a\u062c', p: 1420, d: 10 }
+    ],
+    mm: [
+      { n: '\u062a\u0648 \u064a\u0648', p: 1180, d: 30 },
+      { n: '\u0645\u0644\u0627\u0630', p: 1290, d: 22 },
+      { n: '\u0623\u0633\u064a\u062c', p: 1380, d: 18 },
+      { n: '\u0627\u0644\u0627\u062a\u062d\u0627\u062f', p: 1450, d: 12 }
+    ]
+  };
+  function key() {
+    var p = (location.pathname + location.search).toLowerCase();
+    if (p.indexOf('travel') > -1) return 'travel';
+    if (p.indexOf('medical') > -1) return 'medical';
+    if (p.indexOf('helper') > -1) return 'helpers';
+    if (p.indexOf('mm') > -1) return 'mm';
+    return 'motor';
+  }
+  function cardHTML(o) {
+    return '<div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #ececec;border-radius:14px;padding:12px;margin:0 0 10px">'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-weight:700;font-size:15px;color:#111;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + o.n + '</div>'
+      + '<div style="font-size:12px;color:#e0322a;margin-top:3px">' + T.off + ' ' + o.d + '%</div>'
+      + '</div>'
+      + '<div style="text-align:center;min-width:60px">'
+      + '<div style="font-weight:800;font-size:17px;color:#0a7d3f">' + o.p + '</div>'
+      + '<div style="font-size:11px;color:#999">' + T.cur + '</div>'
+      + '</div>'
+      + '<button type="button" style="border:0;border-radius:10px;background:#ffd200;color:#111;font-weight:700;font-size:13px;padding:9px 12px">' + T.pick + '</button>'
+      + '</div>';
+  }
+  function run(form) {
+    if (!form) return;
+    var bad = null, cap = null;
+    Array.prototype.forEach.call(form.querySelectorAll('input,select'), function (i) {
+      var t = (i.type || '').toLowerCase();
+      if (t === 'hidden' || t === 'checkbox' || t === 'radio' || i.disabled) return;
+      var idn = ((i.id || '') + ' ' + (i.name || '')).toLowerCase();
+      if (idn.indexOf('captcha') > -1) { cap = i; return; }
+      if (!(i.value || '').trim()) { if (!bad) bad = i; }
+    });
+    if (cap && (cap.value || '').replace(/\D/g, '').length < 4) bad = cap;
+    var out = document.getElementById('ref-offers-out');
+    if (!out) {
+      out = document.createElement('div');
+      out.id = 'ref-offers-out';
+      out.style.cssText = 'margin:16px 12px 40px';
+      form.parentNode.insertBefore(out, form.nextSibling);
+    }
+    if (bad) {
+      out.innerHTML = '<div style="background:#fff3f3;border:1px solid #ffd0d0;color:#c02b22;border-radius:12px;padding:10px;font-size:13px">' + T.fix + '</div>';
+      try { bad.focus({ preventScroll: true }); } catch (x) {}
+      out.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    var list = D[key()] || D.motor;
+    out.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 10px">'
+      + '<strong style="font-size:15px">' + T.title + '</strong>'
+      + '<button type="button" id="ref-offers-back" style="border:0;background:none;color:#0a6cd6;font-size:13px;padding:4px">' + T.back + '</button>'
+      + '</div>' + list.map(cardHTML).join('');
+    out.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var b = out.querySelector('#ref-offers-back');
+    if (b) b.addEventListener('click', function () { out.parentNode && out.parentNode.removeChild(out); });
+  }
+  function formOf(el) {
+    if (el.closest) { var f = el.closest('form'); if (f) return f; }
+    var p = el.parentNode;
+    while (p && p.nodeType === 1) { if (p.tagName === 'FORM') return p; p = p.parentNode; }
+    return null;
+  }
+  window.addEventListener('click', function (e) {
+    var el = e.target;
+    if (!el || el.nodeType !== 1 || !el.closest) return;
+    var btn = el.closest('button[type=submit],button.bg-newYellow,input[type=submit]');
+    if (!btn) return;
+    var f = formOf(btn);
+    if (!f) return;
+    e.preventDefault();
+    e.stopPropagation();
+    run(f);
+  }, true);
+  window.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var f = e.target && e.target.form ? e.target.form : null;
+    if (!f) return;
+    e.preventDefault();
+    e.stopPropagation();
+    run(f);
+  }, true);
+})();
