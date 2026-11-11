@@ -21,6 +21,21 @@
   var OFFERS = { "/new-appointment": "/compare-offers", "/travel-form": "/travel-offers",
     "/domestic-form": "/domestic-offers", "/medical-form": "/medical-offers",
     "/malpractice-form": "/malpractice-offers" };
+  document.addEventListener("click", function (e) {
+    var t = e.target;
+    if (!t || t.nodeType !== 1 || !t.closest) return;
+    var a = t.closest("a[href], [data-ref-nav]");
+    if (!a) return;
+    var to = a.getAttribute("data-ref-nav") || a.getAttribute("href");
+    if (!to) return;
+    var p = String(to).split("?")[0];
+    if (p.charAt(0) !== "/") return;
+    if (!MAP[p] && !REQ[p] && !FORM[p]) return;
+    if (norm() === p) return;
+    e.preventDefault();
+    e.stopPropagation();
+    location.href = to;
+  }, true);
   function norm() { return (location.pathname || "/").replace(/\/+$/, "") || "/"; }
   if (!MAP[norm()]) return;
 
@@ -73,7 +88,7 @@
     var p = norm();
     if (!MAP[p]) { host.style.display = "none"; return; }
     host.style.display = "";
-    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html?b=34&r=" + encodeURIComponent(p);
+    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html?b=35&r=" + encodeURIComponent(p);
     if (src !== current) { current = src; frame.src = src; }
   }
 
