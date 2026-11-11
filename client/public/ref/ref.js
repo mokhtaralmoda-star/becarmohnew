@@ -803,10 +803,11 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     inp.style.display = 'none';
 
     var box = document.createElement('div');
-    box.style.cssText = 'position:relative;width:100%;height:44px;line-height:42px;background:#fff;' +
-      'border:1px solid #D9D9D9;border-radius:6px;padding:0 12px 0 34px;font-size:14px;color:#707070;' +
-      'box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;';
+    box.style.cssText = 'position:relative;display:flex;align-items:center;width:100%;height:44px;background:#fff;' +
+      'border:1px solid #D9D9D9;border-radius:6px;padding:0 12px 0 40px;font-size:14px;color:#707070;' +
+      'box-sizing:border-box;overflow:visible;white-space:nowrap;';
     var label = document.createElement('span');
+    label.style.cssText = 'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;';
     label.textContent = isMonth ? PH_M : PH_Y;
     box.appendChild(label);
 
