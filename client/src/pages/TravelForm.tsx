@@ -244,12 +244,18 @@ export default function TravelForm() {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ بداية التغطية <span className="text-red-500">*</span></label>
-                <input type="date" value={startDate} min={todayStr} onChange={e => { setStartDate(e.target.value); if (formErrors.startDate) { const ne = { ...formErrors }; delete ne.startDate; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.startDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} />
+                <div className="relative min-w-0">
+                  <input type="text" value={startDate ? startDate.split('-').join('/') : ''} readOnly placeholder="يوم/شهر/سنة" dir="ltr" style={{ textAlign: 'right' }} className={`w-full p-3 border-2 rounded-lg ${formErrors.startDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
+                  <input type="date" value={startDate} min={todayStr} onChange={e => { setStartDate(e.target.value); if (formErrors.startDate) { const ne = { ...formErrors }; delete ne.startDate; setFormErrors(ne); } }} className="absolute inset-0 w-full h-full opacity-0" />
+                </div>
                 {formErrors.startDate && <p className="text-red-500 text-xs mt-1">{formErrors.startDate}</p>}
               </div>
               <div>
                 <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ نهاية التغطية <span className="text-red-500">*</span></label>
-                <input type="date" value={endDate} min={startDate || todayStr} onChange={e => { setEndDate(e.target.value); if (formErrors.endDate) { const ne = { ...formErrors }; delete ne.endDate; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.endDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none`} />
+                <div className="relative min-w-0">
+                  <input type="text" value={endDate ? endDate.split('-').join('/') : ''} readOnly placeholder="يوم/شهر/سنة" dir="ltr" style={{ textAlign: 'right' }} className={`w-full p-3 border-2 rounded-lg ${formErrors.endDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
+                  <input type="date" value={endDate} min={startDate || todayStr} onChange={e => { setEndDate(e.target.value); if (formErrors.endDate) { const ne = { ...formErrors }; delete ne.endDate; setFormErrors(ne); } }} className="absolute inset-0 w-full h-full opacity-0" />
+                </div>
                 {formErrors.endDate && <p className="text-red-500 text-xs mt-1">{formErrors.endDate}</p>}
               </div>
             </div>
