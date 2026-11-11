@@ -126,12 +126,18 @@ export default function MalpracticeForm() {
             </div>
             <div>
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ الميلاد <span className="text-red-500">*</span></label>
-              <input type="date" value={birthDate} onChange={e => { setBirthDate(e.target.value); if (formErrors.birthDate) { const ne = { ...formErrors }; delete ne.birthDate; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.birthDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
+              <div className="relative">
+                <input type="date" value={birthDate} onChange={e => { setBirthDate(e.target.value); if (formErrors.birthDate) { const ne = { ...formErrors }; delete ne.birthDate; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.birthDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} style={{ height: '48px', minHeight: '48px', appearance: 'none', WebkitAppearance: 'none', textAlign: 'right', direction: 'ltr' }} />
+                {!birthDate && <span className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-400 pointer-events-none">يوم/شهر/سنة</span>}
+              </div>
               {formErrors.birthDate && <p className="text-red-500 text-xs mt-1">{formErrors.birthDate}</p>}
             </div>
             <div>
               <label className="block text-sm font-bold mb-2" style={{ color: '#1a5276' }}>تاريخ بداية التأمين <span className="text-red-500">*</span></label>
-              <input type="date" value={insuranceStartDate} onChange={e => { setInsuranceStartDate(e.target.value); if (formErrors.insuranceStartDate) { const ne = { ...formErrors }; delete ne.insuranceStartDate; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.insuranceStartDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} />
+              <div className="relative">
+                <input type="date" value={insuranceStartDate} onChange={e => { setInsuranceStartDate(e.target.value); if (formErrors.insuranceStartDate) { const ne = { ...formErrors }; delete ne.insuranceStartDate; setFormErrors(ne); } }} className={`w-full p-3 border-2 rounded-lg ${formErrors.insuranceStartDate ? 'border-red-500' : 'border-gray-300'} focus:outline-none bg-white`} style={{ height: '48px', minHeight: '48px', appearance: 'none', WebkitAppearance: 'none', textAlign: 'right', direction: 'ltr' }} />
+                {!insuranceStartDate && <span className="absolute inset-y-0 right-3 flex items-center text-sm text-gray-400 pointer-events-none">يوم/شهر/سنة</span>}
+              </div>
               {formErrors.insuranceStartDate && <p className="text-red-500 text-xs mt-1">{formErrors.insuranceStartDate}</p>}
             </div>
             <div>
