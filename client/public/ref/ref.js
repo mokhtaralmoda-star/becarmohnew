@@ -869,3 +869,22 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     inp.parentNode.insertBefore(box, inp.nextSibling);
   });
 })();
+/* ===== v39: on-screen diagnostics for the month/year pickers ===== */
+(function () {
+  var log = document.createElement('div');
+  log.style.cssText = 'position:fixed;bottom:0;right:0;left:0;z-index:2147483647;background:#000;color:#0f0;' +
+    'font:11px monospace;padding:4px;direction:ltr;text-align:left;max-height:120px;overflow:auto;white-space:pre-wrap';
+  document.body.appendChild(log);
+  function p(s) { log.textContent = (log.textContent + '\n' + s).slice(-600); }
+  p('v39 boot ' + location.pathname);
+  var n = document.querySelectorAll('input.mat-mdc-autocomplete-trigger').length;
+  p('inputs=' + n + ' boxes=' + document.querySelectorAll('[data-ref-dd]').length);
+  document.addEventListener('pointerdown', function (e) {
+    var t = e.target;
+    p('pd ' + (t && t.tagName) + ' dd=' + !!(t && t.closest && t.closest('[data-ref-dd]')));
+  }, true);
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    p('clk ' + (t && t.tagName) + ' dd=' + !!(t && t.closest && t.closest('[data-ref-dd]')));
+  }, true);
+})();
