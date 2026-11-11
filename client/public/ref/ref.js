@@ -180,7 +180,7 @@
     input.focus();
   }
   function text(el) { return (el.textContent || '').replace(/\s+/g, ' ').trim(); }
-  document.addEventListener('click', function (e) {
+  document.addEventListener('pointerdown', function (e) {
     var t = e.target;
     var nav = t.closest('[data-ref-nav]');
     if (nav) { e.preventDefault(); go(nav.getAttribute('data-ref-nav')); return; }
@@ -348,7 +348,7 @@
       updateReady();
     });
   }
-  document.addEventListener('click', function (e) {
+  document.addEventListener('pointerdown', function (e) {
     var tab = e.target.closest('.init-custom-tab-item');
     if (!tab) return;
     var all = Array.prototype.slice.call(tab.parentElement.children);
@@ -435,7 +435,7 @@
     setInterval(function () { show(idx + 1); }, 4000);
   });
   // FAQ accordions: answers are in the copy, collapsed with max-height
-  document.addEventListener('click', function (e) {
+  document.addEventListener('pointerdown', function (e) {
     var btn = e.target.closest('#faq-section button');
     if (!btn) return;
     var panel = btn.nextElementSibling;
@@ -473,7 +473,7 @@
     }
     img.src = c.toDataURL();
   }
-  document.addEventListener('click', function (e) {
+  document.addEventListener('pointerdown', function (e) {
     var b = e.target.closest('button, mat-icon, img');
     if (!b) return;
     var s = text(b) + ' ' + (b.getAttribute('alt') || '') + ' ' + (b.className || '');
@@ -826,7 +826,7 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     openBox = box;
   }
 
-  document.addEventListener('click', function (e) {
+  document.addEventListener('pointerdown', function (e) {
     var t = e.target;
     if (!t || t.nodeType !== 1 || !t.closest) return;
     if (t.closest('[data-ref-list]')) return;
