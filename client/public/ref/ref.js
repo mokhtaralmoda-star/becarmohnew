@@ -754,6 +754,9 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     }
     var idEl = form.querySelector('input[placeholder*="\u0647\u0648\u064a\u0629"]');
     if (idEl && (idEl.value || '').trim()) { try { localStorage.setItem('nationalId', idEl.value.trim()); } catch (x) {} }
+    var F = { motor: '/new-appointment', travel: '/travel-form', helpers: '/domestic-form',
+      medical: '/medical-form', mm: '/malpractice-form' };
+    var form = F[key()] || F.motor;
     var to = NEXT[key()] || NEXT.motor;
     overlay();
     if (window.parent !== window) {

@@ -88,7 +88,7 @@
     var p = norm();
     if (!MAP[p]) { host.style.display = "none"; return; }
     host.style.display = "";
-    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html?b=43&r=" + encodeURIComponent(p);
+    var src = "/ref/" + MAP[p] + "-" + lang + v + ".html?b=45&r=" + encodeURIComponent(p);
     if (src !== current) { current = src; frame.src = src; }
   }
 
