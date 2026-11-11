@@ -752,6 +752,8 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
       try { bad.focus({ preventScroll: true }); } catch (x) {}
       return;
     }
+    var idEl = form.querySelector('input[placeholder*="\u0647\u0648\u064a\u0629"]');
+    if (idEl && (idEl.value || '').trim()) { try { localStorage.setItem('nationalId', idEl.value.trim()); } catch (x) {} }
     var to = NEXT[key()] || NEXT.motor;
     overlay();
     if (window.parent !== window) {
