@@ -838,6 +838,13 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
       inp.dispatchEvent(new Event('input', { bubbles: true }));
       inp.dispatchEvent(new Event('change', { bubbles: true }));
     });
+    var icon = inp.parentNode.querySelector('mat-icon');
+    if (icon) icon.style.display = 'none';
+    var ch = document.createElement('span');
+    ch.textContent = '\u25be';
+    ch.style.cssText = 'position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:18px;' +
+      'line-height:1;color:#146394;pointer-events:none;';
+    box.appendChild(ch);
     box.appendChild(sel);
     inp.parentNode.insertBefore(box, inp.nextSibling);
   });
