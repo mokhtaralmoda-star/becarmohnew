@@ -782,7 +782,8 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     run(f);
   }, true);
 })();
-/* ===== v32: month/year fields become real native selects ===== */
+
+/* ===== v37: month/year pickers with our own list ===== */
 (function () {
   var M = ['\u064a\u0646\u0627\u064a\u0631', '\u0641\u0628\u0631\u0627\u064a\u0631', '\u0645\u0627\u0631\u0633',
     '\u0623\u0628\u0631\u064a\u0644', '\u0645\u0627\u064a\u0648', '\u064a\u0648\u0646\u064a\u0648',
@@ -790,6 +791,65 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     '\u0623\u0643\u062a\u0648\u0628\u0631', '\u0646\u0648\u0641\u0645\u0628\u0631', '\u062f\u064a\u0633\u0645\u0628\u0631'];
   var PH_M = '\u0634\u0647\u0631 \u0627\u0644\u0645\u064a\u0644\u0627\u062f';
   var PH_Y = '\u0633\u0646\u0629 \u0627\u0644\u0645\u064a\u0644\u0627\u062f';
+  var list = null, openBox = null;
+
+  function closeList() {
+    if (list && list.parentNode) list.parentNode.removeChild(list);
+    list = null; openBox = null;
+  }
+
+  function open(box, inp, vals) {
+    closeList();
+    list = document.createElement('div');
+    list.setAttribute('data-ref-list', '1');
+    list.style.cssText = 'position:fixed;z-index:2147483000;max-height:230px;overflow:auto;background:#fff;' +
+      'border:1px solid #D9D9D9;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);padding:4px 0;';
+    var r = box.getBoundingClientRect();
+    list.style.left = r.left + 'px';
+    list.style.top = (r.bottom + 4) + 'px';
+    list.style.width = r.width + 'px';
+    vals.forEach(function (v) {
+      var o = document.createElement('div');
+      o.textContent = v[1];
+      o.setAttribute('data-v', v[0]);
+      o.style.cssText = 'padding:10px 12px;font-size:14px;color:#333;cursor:pointer;text-align:right;';
+      o.addEventListener('click', function () {
+        inp.value = v[0];
+        box.firstChild.textContent = v[1];
+        closeList();
+        inp.dispatchEvent(new Event('input', { bubbles: true }));
+        inp.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+      list.appendChild(o);
+    });
+    document.body.appendChild(list);
+    openBox = box;
+  }
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || t.nodeType !== 1 || !t.closest) return;
+    if (t.closest('[data-ref-list]')) return;
+    var box = t.closest('[data-ref-dd]');
+    if (!box) { if (list) closeList(); return; }
+    e.preventDefault();
+    e.stopPropagation();
+    if (openBox === box) { closeList(); return; }
+    var inp = box.getAttribute('data-ref-for') === 'm'
+      ? box.parentNode.querySelector('input[data-ref-mm]')
+      : box.parentNode.querySelector('input[data-ref-yy]');
+    var vals = [];
+    if (box.getAttribute('data-ref-for') === 'm') {
+      for (var i = 1; i <= 12; i++) vals.push([String(i), M[i - 1]]);
+    } else {
+      var y = new Date().getFullYear();
+      for (var j = y - 18; j >= y - 70; j--) vals.push([String(j), String(j)]);
+    }
+    open(box, inp, vals);
+  }, true);
+
+  window.addEventListener('scroll', function () { if (list) closeList(); }, true);
+
   document.querySelectorAll('input.mat-mdc-autocomplete-trigger').forEach(function (inp) {
     if (inp.getAttribute('data-ref-sel')) return;
     var ph = inp.getAttribute('placeholder') || '';
@@ -797,32 +857,15 @@ html,body{overflow-x:hidden!important;max-width:100%!important}
     var isYear = ph.indexOf(PH_Y) === 0 || /year/i.test(ph);
     if (!isMonth && !isYear) return;
     inp.setAttribute('data-ref-sel', '1');
-    var sel = document.createElement('select');
-    sel.className = inp.className;
-    sel.style.cssText = 'position:relative;z-index:60;cursor:pointer;width:100%;height:44px;background:#fff;border:1px solid #D9D9D9;outline:0;font-size:14px;' +
-      'color:#707070;padding:0 12px 0 34px;appearance:none;-webkit-appearance:none;border-radius:6px;direction:rtl;margin-top:5px;';
-    var first = document.createElement('option');
-    first.value = '';
-    first.textContent = isMonth ? PH_M : PH_Y;
-    sel.appendChild(first);
-    if (isMonth) {
-      M.forEach(function (n, i) {
-        var o = document.createElement('option');
-        o.value = String(i + 1); o.textContent = n; sel.appendChild(o);
-      });
-    } else {
-      var y = new Date().getFullYear();
-      for (var i = y - 18; i >= y - 70; i--) {
-        var o = document.createElement('option');
-        o.value = String(i); o.textContent = String(i); sel.appendChild(o);
-      }
-    }
+    inp.setAttribute(isMonth ? 'data-ref-mm' : 'data-ref-yy', '1');
     inp.style.display = 'none';
-    sel.addEventListener('change', function () {
-      inp.value = sel.value;
-      inp.dispatchEvent(new Event('input', { bubbles: true }));
-      inp.dispatchEvent(new Event('change', { bubbles: true }));
-    });
-    inp.parentNode.insertBefore(sel, inp.nextSibling);
+    var box = document.createElement('div');
+    box.setAttribute('data-ref-dd', '1');
+    box.setAttribute('data-ref-for', isMonth ? 'm' : 'y');
+    box.style.cssText = 'position:relative;width:100%;height:44px;line-height:42px;background:#fff;' +
+      'border:1px solid #D9D9D9;border-radius:6px;padding:0 12px 0 34px;font-size:14px;color:#707070;' +
+      'cursor:pointer;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;';
+    box.appendChild(document.createTextNode(isMonth ? PH_M : PH_Y));
+    inp.parentNode.insertBefore(box, inp.nextSibling);
   });
 })();
